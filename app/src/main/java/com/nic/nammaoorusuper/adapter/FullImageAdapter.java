@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.nic.nammaoorusuper.R;
 import com.nic.nammaoorusuper.dataBase.dbData;
 import com.nic.nammaoorusuper.databinding.GalleryThumbnailBinding;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
 
 
@@ -25,11 +25,11 @@ public class FullImageAdapter extends RecyclerView.Adapter<FullImageAdapter.MyVi
 
     private Context context;
     private PrefManager prefManager;
-    private List<PMAYSurvey> imagePreviewlistvalues;
+    private List<NOS> imagePreviewlistvalues;
     private final com.nic.nammaoorusuper.dataBase.dbData dbData;
     private LayoutInflater layoutInflater;
 
-    public FullImageAdapter(Context context, List<PMAYSurvey> imagePreviewlistvalues, dbData dbData) {
+    public FullImageAdapter(Context context, List<NOS> imagePreviewlistvalues, dbData dbData) {
 
         this.context = context;
         prefManager = new PrefManager(context);

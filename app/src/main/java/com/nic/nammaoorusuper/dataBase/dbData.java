@@ -11,7 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import com.nic.nammaoorusuper.constant.AppConstant;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 
 import java.util.ArrayList;
 
@@ -40,7 +40,7 @@ public class dbData {
 
 
     /****** VILLAGE TABLE *****/
-    public PMAYSurvey insertVillage(PMAYSurvey pmgsySurvey) {
+    public NOS insertVillage(NOS pmgsySurvey) {
 
         ContentValues values = new ContentValues();
         values.put(AppConstant.DISTRICT_CODE, pmgsySurvey.getDistictCode());
@@ -53,9 +53,9 @@ public class dbData {
 
         return pmgsySurvey;
     }
-    public ArrayList<PMAYSurvey > getAll_Village(String dcode,String bcode) {
+    public ArrayList<NOS> getAll_Village(String dcode, String bcode) {
 
-        ArrayList<PMAYSurvey > cards = new ArrayList<>();
+        ArrayList<NOS> cards = new ArrayList<>();
         Cursor cursor = null;
 
         try {
@@ -64,7 +64,7 @@ public class dbData {
             //       COLUMNS, null, null, null, null, null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    PMAYSurvey  card = new PMAYSurvey ();
+                    NOS card = new NOS();
                     card.setDistictCode(cursor.getString(cursor
                             .getColumnIndexOrThrow(AppConstant.DISTRICT_CODE)));
                     card.setBlockCode(cursor.getString(cursor
@@ -87,7 +87,7 @@ public class dbData {
         return cards;
     }
 
-    public PMAYSurvey insertHabitation(PMAYSurvey pmgsySurvey) {
+    public NOS insertHabitation(NOS pmgsySurvey) {
 
         ContentValues values = new ContentValues();
         values.put(AppConstant.DISTRICT_CODE, pmgsySurvey.getDistictCode());
@@ -101,9 +101,9 @@ public class dbData {
 
         return pmgsySurvey;
     }
-    public ArrayList<PMAYSurvey > getAll_Habitation(String dcode,String bcode) {
+    public ArrayList<NOS> getAll_Habitation(String dcode, String bcode) {
 
-        ArrayList<PMAYSurvey > cards = new ArrayList<>();
+        ArrayList<NOS> cards = new ArrayList<>();
         Cursor cursor = null;
 
         try {
@@ -112,7 +112,7 @@ public class dbData {
             //       COLUMNS, null, null, null, null, null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    PMAYSurvey  card = new PMAYSurvey ();
+                    NOS card = new NOS();
                     card.setDistictCode(cursor.getString(cursor
                             .getColumnIndexOrThrow(AppConstant.DISTRICT_CODE)));
                     card.setBlockCode(cursor.getString(cursor
@@ -137,7 +137,7 @@ public class dbData {
         return cards;
     }
 
-    public PMAYSurvey insertPMAY(PMAYSurvey pmgsySurvey) {
+    public NOS insertPMAY(NOS pmgsySurvey) {
 
         ContentValues values = new ContentValues();
         values.put(AppConstant.PV_CODE, pmgsySurvey.getPvCode());
@@ -156,9 +156,9 @@ public class dbData {
         return pmgsySurvey;
     }
 
-    public ArrayList<PMAYSurvey > getAll_PMAYList(String pvcode,String habcode) {
+    public ArrayList<NOS> getAll_PMAYList(String pvcode, String habcode) {
 
-        ArrayList<PMAYSurvey > cards = new ArrayList<>();
+        ArrayList<NOS> cards = new ArrayList<>();
         Cursor cursor = null;
 
         String condition = "";
@@ -175,7 +175,7 @@ public class dbData {
             //       COLUMNS, null, null, null, null, null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    PMAYSurvey  card = new PMAYSurvey ();
+                    NOS card = new NOS();
                     card.setPvCode(cursor.getString(cursor
                             .getColumnIndexOrThrow(AppConstant.PV_CODE)));
                     card.setHabCode(cursor.getString(cursor
@@ -208,9 +208,9 @@ public class dbData {
         return cards;
     }
 
-    public ArrayList<PMAYSurvey> getSavedPMAYDetails() {
+    public ArrayList<NOS> getSavedPMAYDetails() {
 
-        ArrayList<PMAYSurvey> cards = new ArrayList<>();
+        ArrayList<NOS> cards = new ArrayList<>();
         Cursor cursor = null;
         String selection = null;
         String[] selectionArgs = null;
@@ -223,7 +223,7 @@ public class dbData {
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
 
-                    PMAYSurvey card = new PMAYSurvey();
+                    NOS card = new NOS();
 
 
                     card.setPmayId(cursor.getString(cursor
@@ -273,7 +273,7 @@ public class dbData {
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
 
-                    PMAYSurvey card = new PMAYSurvey();
+                    NOS card = new NOS();
 
                     card.setPmayId(cursor.getString(cursor
                             .getColumnIndexOrThrow("id")));
@@ -319,9 +319,9 @@ public class dbData {
     }
 
 
-    public ArrayList<PMAYSurvey> getSavedPMAYImages(String pmay_id,String type_of_photo) {
+    public ArrayList<NOS> getSavedPMAYImages(String pmay_id, String type_of_photo) {
 
-        ArrayList<PMAYSurvey> cards = new ArrayList<>();
+        ArrayList<NOS> cards = new ArrayList<>();
         Cursor cursor = null;
         String selection = null;
         String[] selectionArgs = null;
@@ -346,7 +346,7 @@ public class dbData {
                     byte[] decodedString = Base64.decode(photo, Base64.DEFAULT);
                     Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
-                    PMAYSurvey card = new PMAYSurvey();
+                    NOS card = new NOS();
 
 
                     card.setPmayId(cursor.getString(cursor
@@ -375,27 +375,27 @@ public class dbData {
 
 
     /////New ******************** Task****************
-    public void insert_Master_Fin_Year(PMAYSurvey pmgsySurvey) {
+    public void insert_Master_Fin_Year(NOS pmgsySurvey) {
         ContentValues values = new ContentValues();
         values.put("fin_year", pmgsySurvey.getFin_year());
         long id = db.insert(DBHelper.MASTER_FIN_YEAR_TABLE,null,values);
         Log.d("Inserted_id_fin_year", String.valueOf(id));
     }
-    public void insert_Master_Work_Type(PMAYSurvey pmgsySurvey) {
+    public void insert_Master_Work_Type(NOS pmgsySurvey) {
         ContentValues values = new ContentValues();
         values.put("work_code", pmgsySurvey.getWork_code());
         values.put("work_name", pmgsySurvey.getWork_name());
         long id = db.insert(DBHelper.MASTER_WORK_TYPE_TABLE,null,values);
         Log.d("Inserted_id_work_type", String.valueOf(id));
     }
-    public void insert_Master_Self_Help_Group(PMAYSurvey pmgsySurvey) {
+    public void insert_Master_Self_Help_Group(NOS pmgsySurvey) {
         ContentValues values = new ContentValues();
         values.put("shg_code", pmgsySurvey.getShg_code());
         values.put("shg_name", pmgsySurvey.getShg_name());
         long id = db.insert(DBHelper.MASTER_SELF_HELP_GROUP_TABLE,null,values);
         Log.d("Inserted_id_s_g_t", String.valueOf(id));
     }
-    public void insert_Master_Self_Help_Group_Member(PMAYSurvey pmgsySurvey) {
+    public void insert_Master_Self_Help_Group_Member(NOS pmgsySurvey) {
         ContentValues values = new ContentValues();
         values.put("shg_code", pmgsySurvey.getShg_code());
         values.put("shg_member_code", pmgsySurvey.getShg_member_code());
@@ -404,8 +404,8 @@ public class dbData {
         Log.d("Inserted_id_s_g_m_t", String.valueOf(id));
     }
 
-    public ArrayList<PMAYSurvey > getAll_Master_Fin_Year() {
-        ArrayList<PMAYSurvey > cards = new ArrayList<>();
+    public ArrayList<NOS> getAll_Master_Fin_Year() {
+        ArrayList<NOS> cards = new ArrayList<>();
         Cursor cursor = null;
 
         try {
@@ -414,7 +414,7 @@ public class dbData {
             //       COLUMNS, null, null, null, null, null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    PMAYSurvey  card = new PMAYSurvey ();
+                    NOS card = new NOS();
                     card.setFin_year(cursor.getString(cursor
                             .getColumnIndexOrThrow("fin_year")));
                     cards.add(card);
@@ -429,8 +429,8 @@ public class dbData {
         }
         return cards;
     }
-    public ArrayList<PMAYSurvey > getAll_Master_Work_Type() {
-        ArrayList<PMAYSurvey > cards = new ArrayList<>();
+    public ArrayList<NOS> getAll_Master_Work_Type() {
+        ArrayList<NOS> cards = new ArrayList<>();
         Cursor cursor = null;
 
         try {
@@ -439,7 +439,7 @@ public class dbData {
             //       COLUMNS, null, null, null, null, null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    PMAYSurvey  card = new PMAYSurvey ();
+                    NOS card = new NOS();
                     card.setWork_code(cursor.getInt(cursor
                             .getColumnIndexOrThrow("work_code")));
                     card.setWork_name(cursor.getString(cursor
@@ -456,8 +456,8 @@ public class dbData {
         }
         return cards;
     }
-    public ArrayList<PMAYSurvey > getAll_Master_Self_Help_Group() {
-        ArrayList<PMAYSurvey > cards = new ArrayList<>();
+    public ArrayList<NOS> getAll_Master_Self_Help_Group() {
+        ArrayList<NOS> cards = new ArrayList<>();
         Cursor cursor = null;
 
         try {
@@ -466,7 +466,7 @@ public class dbData {
             //       COLUMNS, null, null, null, null, null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    PMAYSurvey  card = new PMAYSurvey ();
+                    NOS card = new NOS();
                     card.setShg_code(cursor.getInt(cursor
                             .getColumnIndexOrThrow("shg_code")));
                     card.setShg_name(cursor.getString(cursor
@@ -483,8 +483,8 @@ public class dbData {
         }
         return cards;
     }
-    public ArrayList<PMAYSurvey > getAll_Master_Self_Help_Group_Member(int shg_code) {
-        ArrayList<PMAYSurvey > cards = new ArrayList<>();
+    public ArrayList<NOS> getAll_Master_Self_Help_Group_Member(int shg_code) {
+        ArrayList<NOS> cards = new ArrayList<>();
         Cursor cursor = null;
         String selection;
         String[] selectionArgs;
@@ -498,7 +498,7 @@ public class dbData {
             //       COLUMNS, null, null, null, null, null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    PMAYSurvey  card = new PMAYSurvey ();
+                    NOS card = new NOS();
                     card.setShg_code(cursor.getInt(cursor
                             .getColumnIndexOrThrow("shg_code")));
                     card.setShg_member_code(cursor.getInt(cursor
@@ -517,8 +517,8 @@ public class dbData {
         }
         return cards;
     }
-    public ArrayList<PMAYSurvey > getParticular_Before_Save_Tree_Image_Table(int shg_code,int shg_member_code) {
-        ArrayList<PMAYSurvey > cards = new ArrayList<>();
+    public ArrayList<NOS> getParticular_Before_Save_Tree_Image_Table(int shg_code, int shg_member_code) {
+        ArrayList<NOS> cards = new ArrayList<>();
         Cursor cursor = null;
         String selection;
         String[] selectionArgs;
@@ -531,7 +531,7 @@ public class dbData {
 
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    PMAYSurvey  card = new PMAYSurvey ();
+                    NOS card = new NOS();
 
                     card.setShg_code(cursor.getInt(cursor
                             .getColumnIndexOrThrow("shg_code")));
@@ -560,8 +560,8 @@ public class dbData {
         }
         return cards;
     }
-    public ArrayList<PMAYSurvey > getParticular_After_Save_Tree_Image_Table(int shg_code,int shg_member_code) {
-        ArrayList<PMAYSurvey > cards = new ArrayList<>();
+    public ArrayList<NOS> getParticular_After_Save_Tree_Image_Table(int shg_code, int shg_member_code) {
+        ArrayList<NOS> cards = new ArrayList<>();
         Cursor cursor = null;
         String selection;
         String[] selectionArgs;
@@ -575,7 +575,7 @@ public class dbData {
             //       COLUMNS, null, null, null, null, null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    PMAYSurvey  card = new PMAYSurvey ();
+                    NOS card = new NOS();
 
                     card.setShg_code(cursor.getInt(cursor
                             .getColumnIndexOrThrow("shg_code")));
@@ -604,8 +604,8 @@ public class dbData {
         }
         return cards;
     }
-    public ArrayList<PMAYSurvey> getAllTreeImages(){
-        ArrayList<PMAYSurvey > cards = new ArrayList<>();
+    public ArrayList<NOS> getAllTreeImages(){
+        ArrayList<NOS> cards = new ArrayList<>();
         Cursor cursor = null;
         String selection;
         String[] selectionArgs;
@@ -614,7 +614,7 @@ public class dbData {
             cursor = db.rawQuery(AppConstant.SQL_QUERY,null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    PMAYSurvey  card = new PMAYSurvey ();
+                    NOS card = new NOS();
 
                     card.setShg_code(cursor.getInt(cursor
                             .getColumnIndexOrThrow("shg_code")));

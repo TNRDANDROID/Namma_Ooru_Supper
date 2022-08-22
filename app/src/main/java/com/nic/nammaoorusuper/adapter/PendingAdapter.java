@@ -20,7 +20,7 @@ import com.nic.nammaoorusuper.activity.PendingScreen;
 import com.nic.nammaoorusuper.constant.AppConstant;
 import com.nic.nammaoorusuper.dataBase.DBHelper;
 import com.nic.nammaoorusuper.databinding.PendingAdapterBinding;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
 import com.nic.nammaoorusuper.utils.Utils;
 
@@ -36,12 +36,12 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.MyViewHo
 
     private static Activity context;
     private PrefManager prefManager;
-    private List<PMAYSurvey> pendingListValues;
+    private List<NOS> pendingListValues;
     static JSONObject dataset = new JSONObject();
 
     private LayoutInflater layoutInflater;
 
-    public PendingAdapter(Activity context, List<PMAYSurvey> pendingListValues) {
+    public PendingAdapter(Activity context, List<NOS> pendingListValues) {
 
         this.context = context;
         prefManager = new PrefManager(context);

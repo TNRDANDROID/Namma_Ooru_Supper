@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import com.nic.nammaoorusuper.R;
 import com.nic.nammaoorusuper.databinding.AppUpdateDialogBinding;
 import com.nic.nammaoorusuper.support.MyCustomTextView;
+import com.nic.nammaoorusuper.utils.Utils;
 
 
 public class AppUpdateDialog extends AppCompatActivity implements View.OnClickListener {
@@ -30,6 +31,7 @@ public class AppUpdateDialog extends AppCompatActivity implements View.OnClickLi
 
     public void intializeUI() {
         appUpdateDialogBinding.btnOk.setOnClickListener(this);
+        Utils.statuscolor(AppUpdateDialog.this);
 
     }
 

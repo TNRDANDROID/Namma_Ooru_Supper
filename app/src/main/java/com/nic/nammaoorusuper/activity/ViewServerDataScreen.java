@@ -30,7 +30,7 @@ import com.nic.nammaoorusuper.constant.AppConstant;
 import com.nic.nammaoorusuper.dataBase.DBHelper;
 import com.nic.nammaoorusuper.dataBase.dbData;
 import com.nic.nammaoorusuper.databinding.ViewServerDataScreenBinding;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
 
 import java.util.ArrayList;
@@ -44,8 +44,8 @@ public class ViewServerDataScreen extends AppCompatActivity implements Api.Serve
     private SearchView searchView;
     private PrefManager prefManager;
     String pref_Village;
-    private List<PMAYSurvey> Village = new ArrayList<>();
-    private List<PMAYSurvey> Habitation = new ArrayList<>();
+    private List<NOS> Village = new ArrayList<>();
+    private List<NOS> Habitation = new ArrayList<>();
     public static SQLiteDatabase db;
     public static DBHelper dbHelper;
 
@@ -108,13 +108,13 @@ public class ViewServerDataScreen extends AppCompatActivity implements Api.Serve
         VillageList = db.rawQuery("SELECT * FROM " + DBHelper.VILLAGE_TABLE_NAME + " where dcode = " + prefManager.getDistrictCode() + " and bcode = '" + filterVillage + "'", null);
 
         Village.clear();
-        PMAYSurvey villageListValue = new PMAYSurvey();
+        NOS villageListValue = new NOS();
         villageListValue.setPvName("Select Village");
         Village.add(villageListValue);
         if (VillageList.getCount() > 0) {
             if (VillageList.moveToFirst()) {
                 do {
-                    PMAYSurvey villageList = new PMAYSurvey();
+                    NOS villageList = new NOS();
                     String districtCode = VillageList.getString(VillageList.getColumnIndexOrThrow(AppConstant.DISTRICT_CODE));
                     String blockCode = VillageList.getString(VillageList.getColumnIndexOrThrow(AppConstant.BLOCK_CODE));
                     String pvCode = VillageList.getString(VillageList.getColumnIndexOrThrow(AppConstant.PV_CODE));
@@ -138,13 +138,13 @@ public class ViewServerDataScreen extends AppCompatActivity implements Api.Serve
         HABList = db.rawQuery("SELECT * FROM " + DBHelper.HABITATION_TABLE_NAME + " where dcode = '" + dcode + "'and bcode = '" + bcode + "' and pvcode = '" + pvcode + "' order by habitation_name asc", null);
 
         Habitation.clear();
-        PMAYSurvey habitationListValue = new PMAYSurvey();
+        NOS habitationListValue = new NOS();
         habitationListValue.setHabitationName("Select Habitation");
         Habitation.add(habitationListValue);
         if (HABList.getCount() > 0) {
             if (HABList.moveToFirst()) {
                 do {
-                    PMAYSurvey habList = new PMAYSurvey();
+                    NOS habList = new NOS();
                     String districtCode = HABList.getString(HABList.getColumnIndexOrThrow(AppConstant.DISTRICT_CODE));
                     String blockCode = HABList.getString(HABList.getColumnIndexOrThrow(AppConstant.BLOCK_CODE));
                     String pvCode = HABList.getString(HABList.getColumnIndexOrThrow(AppConstant.PV_CODE));
@@ -173,18 +173,18 @@ public class ViewServerDataScreen extends AppCompatActivity implements Api.Serve
     }
 
     public class fetchScheduletask extends AsyncTask<Void, Void,
-            ArrayList<PMAYSurvey>> {
+            ArrayList<NOS>> {
         @Override
-        protected ArrayList<PMAYSurvey> doInBackground(Void... params) {
+        protected ArrayList<NOS> doInBackground(Void... params) {
             dbData.open();
-            ArrayList<PMAYSurvey> savedList = new ArrayList<>();
+            ArrayList<NOS> savedList = new ArrayList<>();
             savedList = dbData.getAll_PMAYList(prefManager.getPvCode(), prefManager.getHabCode());
             Log.d("savedList_COUNT", String.valueOf(savedList.size()));
             return savedList;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<PMAYSurvey> savedList) {
+        protected void onPostExecute(ArrayList<NOS> savedList) {
             super.onPostExecute(savedList);
 
             viewServerDataListAdapter = new ViewServerDataListAdapter(ViewServerDataScreen.this, savedList);

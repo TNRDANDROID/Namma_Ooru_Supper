@@ -21,7 +21,7 @@ import com.nic.nammaoorusuper.api.ServerResponse;
 import com.nic.nammaoorusuper.constant.AppConstant;
 import com.nic.nammaoorusuper.dataBase.dbData;
 import com.nic.nammaoorusuper.databinding.ActivityViewNutriGardenBinding;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
 import com.nic.nammaoorusuper.utils.UrlGenerator;
 import com.nic.nammaoorusuper.utils.Utils;
@@ -47,9 +47,9 @@ public class ViewNutriGarden extends AppCompatActivity implements Api.ServerResp
     int self_Group_member_code=0;
     int tree_type_code=0;
 
-    ArrayList<PMAYSurvey> self_GroupList;
-    ArrayList<PMAYSurvey> fin_Year_List;
-    ArrayList<PMAYSurvey> nutriGarednDetails;
+    ArrayList<NOS> self_GroupList;
+    ArrayList<NOS> fin_Year_List;
+    ArrayList<NOS> nutriGarednDetails;
 
     NutriGardernDetailsServerAdapter nutriGardernDetailsServerAdapter;
     @Override
@@ -116,7 +116,7 @@ public class ViewNutriGarden extends AppCompatActivity implements Api.ServerResp
     public void loadSelfGroupTable(){
         self_GroupList = new ArrayList<>();
         dbData.open();
-        PMAYSurvey self_group_list_item = new PMAYSurvey();
+        NOS self_group_list_item = new NOS();
         self_group_list_item.setShg_code(0);
         self_group_list_item.setShg_name(getResources().getString(R.string.select_self_help_group));
         self_GroupList.add(self_group_list_item);
@@ -128,7 +128,7 @@ public class ViewNutriGarden extends AppCompatActivity implements Api.ServerResp
     public void loadFinYearTable(){
         fin_Year_List = new ArrayList<>();
         dbData.open();
-        PMAYSurvey fin_Year_List_item = new PMAYSurvey();
+        NOS fin_Year_List_item = new NOS();
         fin_Year_List_item.setFin_year(getResources().getString(R.string.select_fin_year));
         fin_Year_List.add(fin_Year_List_item);
         fin_Year_List.addAll(dbData.getAll_Master_Fin_Year());
@@ -223,7 +223,7 @@ public class ViewNutriGarden extends AppCompatActivity implements Api.ServerResp
                     }
                     nutriGarednDetails = new ArrayList<>();
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        PMAYSurvey nutriGardenDetails = new PMAYSurvey();
+                        NOS nutriGardenDetails = new NOS();
                         try {
                             nutriGardenDetails.setFin_year(jsonArray.getJSONObject(i).getString("fin_year"));
                             nutriGardenDetails.setShg_code(jsonArray.getJSONObject(i).getInt("shg_code"));

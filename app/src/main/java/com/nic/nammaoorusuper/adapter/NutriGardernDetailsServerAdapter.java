@@ -20,7 +20,7 @@ import com.nic.nammaoorusuper.activity.ViewNutriGarden;
 import com.nic.nammaoorusuper.constant.AppConstant;
 import com.nic.nammaoorusuper.dataBase.dbData;
 import com.nic.nammaoorusuper.databinding.NewPendingAdapterBinding;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
 import com.nic.nammaoorusuper.utils.Utils;
 
@@ -33,12 +33,12 @@ public class NutriGardernDetailsServerAdapter extends RecyclerView.Adapter<Nutri
 
     private static Activity context;
     private PrefManager prefManager;
-    private List<PMAYSurvey> pendingListValues;
+    private List<NOS> pendingListValues;
     JSONObject dataset = new JSONObject();
     com.nic.nammaoorusuper.dataBase.dbData dbData;
     private LayoutInflater layoutInflater;
 
-    public NutriGardernDetailsServerAdapter(Activity context, List<PMAYSurvey> pendingListValues,dbData dbData) {
+    public NutriGardernDetailsServerAdapter(Activity context, List<NOS> pendingListValues, dbData dbData) {
 
         this.context = context;
         prefManager = new PrefManager(context);

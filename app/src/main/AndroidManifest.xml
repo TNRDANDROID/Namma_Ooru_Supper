@@ -29,35 +29,64 @@
     <uses-permission android:name="android.permission.FLAG_GRANT_READ_URI_PERMISSION" />
 
     <application
-        android:name="com.nic.nammaoorusuper.application.NICApplication"
+        android:name=".application.NICApplication"
         android:allowBackup="true"
-        android:icon="@drawable/ic_app_logo"
+        android:icon="@drawable/namma_ooru_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:resizeableActivity="true"
-        android:roundIcon="@drawable/ic_app_logo"
+        android:roundIcon="@drawable/namma_ooru_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.nic.nammaoorusuper.activity.ViewNutriGarden"
+
+        <activity android:name=".activity.ViewFormActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.SubListDashBoard"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.PhotoCategoryList"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.LocationSaveActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.SubActivityList"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.ActivityList"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.ViewNutriGarden"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged|adjustPan"></activity>
-        <activity android:name="com.nic.nammaoorusuper.activity.NewPendingScreen"
+            android:windowSoftInputMode="stateUnchanged|adjustPan" />
+        <activity
+            android:name=".activity.NewPendingScreen"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged|adjustPan"/>
-        <activity android:name="com.nic.nammaoorusuper.activity.NewHomePage"
+            android:windowSoftInputMode="stateUnchanged|adjustPan" />
+        <activity
+            android:name=".activity.NewHomePage"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged|adjustPan"/>
+            android:windowSoftInputMode="stateUnchanged|adjustPan" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name="com.nic.nammaoorusuper.activity.SplashScreen">
+        <activity android:name=".activity.SplashScreen"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -72,49 +101,50 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.nic.nammaoorusuper.activity.LoginScreen"
+            android:name=".activity.LoginScreen"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
         <activity
-            android:name="com.nic.nammaoorusuper.activity.HomePage"
+            android:name=".activity.HomePage"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
         <activity
-            android:name="com.nic.nammaoorusuper.activity.CameraScreen"
+            android:name=".activity.CameraScreen"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
         <activity
-            android:name="com.nic.nammaoorusuper.activity.FullImageActivity"
+            android:name=".activity.FullImageActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
         <activity
-            android:name="com.nic.nammaoorusuper.activity.AppUpdateDialog"
+            android:name=".activity.AppUpdateDialog"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
         <activity
-            android:name="com.nic.nammaoorusuper.activity.PendingScreen"
+            android:name=".activity.PendingScreen"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
         <activity
-            android:name="com.nic.nammaoorusuper.activity.TakePhotoScreen"
+            android:name=".activity.TakePhotoScreen"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
         <activity
-            android:name="com.nic.nammaoorusuper.activity.ViewServerDataScreen"
+            android:name=".activity.ViewServerDataScreen"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateUnchanged|adjustPan" />
-        <activity android:name="com.nic.nammaoorusuper.activity.MainPage"
+        <activity
+            android:name=".activity.MainPage"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateUnchanged|adjustPan"/>
+            android:windowSoftInputMode="stateUnchanged|adjustPan" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -25,7 +25,7 @@ import com.nic.nammaoorusuper.constant.AppConstant;
 import com.nic.nammaoorusuper.dataBase.DBHelper;
 import com.nic.nammaoorusuper.dataBase.dbData;
 import com.nic.nammaoorusuper.databinding.NewPendingAdapterBinding;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
 import com.nic.nammaoorusuper.utils.Utils;
 
@@ -40,13 +40,13 @@ public class NewPendingAdapter extends RecyclerView.Adapter<NewPendingAdapter.My
 
     private static Activity context;
     private PrefManager prefManager;
-    private List<PMAYSurvey> pendingListValues;
+    private List<NOS> pendingListValues;
     JSONObject dataset = new JSONObject();
     dbData dbData;
     private LayoutInflater layoutInflater;
     public  DBHelper dbHelper;
     public  SQLiteDatabase db;
-    public NewPendingAdapter(Activity context, List<PMAYSurvey> pendingListValues,dbData dbData) {
+    public NewPendingAdapter(Activity context, List<NOS> pendingListValues, dbData dbData) {
 
         this.context = context;
         prefManager = new PrefManager(context);
@@ -153,8 +153,8 @@ public class NewPendingAdapter extends RecyclerView.Adapter<NewPendingAdapter.My
         int shg_member_code = pendingListValues.get(position).getShg_member_code();
         int work_code = pendingListValues.get(position).getWork_code();
 
-        ArrayList<PMAYSurvey> getBeforeImageDetail = dbData.getParticular_Before_Save_Tree_Image_Table(shg_code,shg_member_code);
-        ArrayList<PMAYSurvey> getAfterImageDetail = dbData.getParticular_After_Save_Tree_Image_Table(shg_code,shg_member_code);
+        ArrayList<NOS> getBeforeImageDetail = dbData.getParticular_Before_Save_Tree_Image_Table(shg_code,shg_member_code);
+        ArrayList<NOS> getAfterImageDetail = dbData.getParticular_After_Save_Tree_Image_Table(shg_code,shg_member_code);
 
 
         try {

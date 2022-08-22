@@ -26,7 +26,7 @@ import com.nic.nammaoorusuper.constant.AppConstant;
 import com.nic.nammaoorusuper.dataBase.DBHelper;
 import com.nic.nammaoorusuper.dataBase.dbData;
 import com.nic.nammaoorusuper.databinding.PendingScreenBinding;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
 import com.nic.nammaoorusuper.utils.UrlGenerator;
 import com.nic.nammaoorusuper.utils.Utils;
@@ -72,21 +72,21 @@ public class PendingScreen extends AppCompatActivity implements Api.ServerRespon
 
 
     public class fetchPendingtask extends AsyncTask<Void, Void,
-            ArrayList<PMAYSurvey>> {
+            ArrayList<NOS>> {
         @Override
-        protected ArrayList<PMAYSurvey> doInBackground(Void... params) {
+        protected ArrayList<NOS> doInBackground(Void... params) {
             dbData.open();
-            ArrayList<PMAYSurvey> pmaySurveys = new ArrayList<>();
-            pmaySurveys = dbData.getSavedPMAYDetails();
-            Log.d("PMAY_COUNT", String.valueOf(pmaySurveys.size()));
-            return pmaySurveys;
+            ArrayList<NOS> NOS = new ArrayList<>();
+            NOS = dbData.getSavedPMAYDetails();
+            Log.d("PMAY_COUNT", String.valueOf(NOS.size()));
+            return NOS;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<PMAYSurvey> pmaySurveys) {
-            super.onPostExecute(pmaySurveys);
+        protected void onPostExecute(ArrayList<NOS> NOS) {
+            super.onPostExecute(NOS);
             recyclerView.setVisibility(View.VISIBLE);
-            pendingAdapter = new PendingAdapter(PendingScreen.this, pmaySurveys);
+            pendingAdapter = new PendingAdapter(PendingScreen.this, NOS);
             recyclerView.setAdapter(pendingAdapter);
         }
     }

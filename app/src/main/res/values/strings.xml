@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">NutriGarden</string>
+    <string name="app_name">நம்ம ஊரு சூப்பரு</string>
     <string name="hint_password">Password</string>
     <string name="hint_username">UserName</string>
     <string name="btn_login">Login</string>
@@ -42,9 +42,16 @@
     <string name="sorry_failed_to_capture">Sorry! Failed to capture image</string>
     <string name="user_canceled_video">User cancelled video recording</string>
     <string name="sorry_failed_capture_video">Sorry! Failed to record video</string>
+    <string name="at_least_capture_one_photo">At least Capture one Photo</string>
+    <string name="please_capture_image">Please Capture Image</string>
+    <string name="maximum_three_photos">Maximum Photo reached</string>
+    <string name="inserted_success">Inserted Success!</string>
+    <string name="updated_success">Updated Success!</string>
 
     <string name="do_u_want_to_delete">Do you want to delete?</string>
     <string name="do_u_want_to_upload">Do you want to Upload?</string>
     <string name="entry_form">Entry Form</string>
     <string name="view_data">View Data</string>
+
+
 </resources>

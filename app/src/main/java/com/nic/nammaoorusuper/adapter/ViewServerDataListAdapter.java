@@ -17,22 +17,22 @@ import com.nic.nammaoorusuper.R;
 import com.nic.nammaoorusuper.activity.FullImageActivity;
 import com.nic.nammaoorusuper.constant.AppConstant;
 import com.nic.nammaoorusuper.databinding.ViewServerDataAdapterBinding;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewServerDataListAdapter extends RecyclerView.Adapter<ViewServerDataListAdapter.MyViewHolder> implements Filterable {
-    private List<PMAYSurvey> serverDataListValues;
-    private List<PMAYSurvey> serverDataListValuesFiltered;
+    private List<NOS> serverDataListValues;
+    private List<NOS> serverDataListValuesFiltered;
     private String letter;
     private Context context;
     private ColorGenerator generator = ColorGenerator.MATERIAL;
 
     private LayoutInflater layoutInflater;
 
-    public ViewServerDataListAdapter(Context context, List<PMAYSurvey> serverDataListValues) {
+    public ViewServerDataListAdapter(Context context, List<NOS> serverDataListValues) {
         this.context = context;
         this.serverDataListValues = serverDataListValues;
         this.serverDataListValuesFiltered = serverDataListValues;
@@ -102,8 +102,8 @@ public class ViewServerDataListAdapter extends RecyclerView.Adapter<ViewServerDa
                 if (charString.isEmpty()) {
                     serverDataListValuesFiltered = serverDataListValues;
                 } else {
-                    List<PMAYSurvey> filteredList = new ArrayList<>();
-                    for (PMAYSurvey row : serverDataListValues) {
+                    List<NOS> filteredList = new ArrayList<>();
+                    for (NOS row : serverDataListValues) {
 
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
@@ -122,7 +122,7 @@ public class ViewServerDataListAdapter extends RecyclerView.Adapter<ViewServerDa
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                serverDataListValuesFiltered = (ArrayList<PMAYSurvey>) filterResults.values;
+                serverDataListValuesFiltered = (ArrayList<NOS>) filterResults.values;
                 notifyDataSetChanged();
             }
         };

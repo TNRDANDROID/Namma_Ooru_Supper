@@ -1,8 +1,16 @@
 package com.nic.nammaoorusuper.activity;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -32,16 +40,15 @@ public class SplashScreen extends AppCompatActivity implements
         splashScreenBinding = DataBindingUtil.setContentView(this, R.layout.splash_screen);
         splashScreenBinding.setActivity(this);
         prefManager = new PrefManager(this);
-        if (BuildConfig.BUILD_TYPE.equalsIgnoreCase("production")) {
+
             if (Utils.isOnline()) {
                 checkAppVersion();
             } else {
                 showSignInScreen();
 
             }
-        } else {
-            showSignInScreen();
-        }
+
+        Utils.statuscolor(SplashScreen.this);
     }
 
 

@@ -26,8 +26,7 @@ import com.nic.nammaoorusuper.constant.AppConstant;
 import com.nic.nammaoorusuper.dataBase.DBHelper;
 import com.nic.nammaoorusuper.dataBase.dbData;
 import com.nic.nammaoorusuper.databinding.ActivityNewPendingScreenBinding;
-import com.nic.nammaoorusuper.databinding.PendingScreenBinding;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
 import com.nic.nammaoorusuper.utils.UrlGenerator;
 import com.nic.nammaoorusuper.utils.Utils;
@@ -76,18 +75,18 @@ public class NewPendingScreen extends AppCompatActivity implements Api.ServerRes
 
 
     public class fetchPendingtask extends AsyncTask<Void, Void,
-            ArrayList<PMAYSurvey>> {
+            ArrayList<NOS>> {
         @Override
-        protected ArrayList<PMAYSurvey> doInBackground(Void... params) {
+        protected ArrayList<NOS> doInBackground(Void... params) {
             dbData.open();
-            ArrayList<PMAYSurvey> pmaySurveys = new ArrayList<>();
-            pmaySurveys = dbData.getAllTreeImages();
-            Log.d("Tree_COUNT", String.valueOf(pmaySurveys.size()));
-            return pmaySurveys;
+            ArrayList<NOS> NOS = new ArrayList<>();
+            NOS = dbData.getAllTreeImages();
+            Log.d("Tree_COUNT", String.valueOf(NOS.size()));
+            return NOS;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<PMAYSurvey> treeList) {
+        protected void onPostExecute(ArrayList<NOS> treeList) {
             super.onPostExecute(treeList);
             recyclerView.setVisibility(View.VISIBLE);
             pendingAdapter = new NewPendingAdapter(NewPendingScreen.this, treeList,dbData);

@@ -6,18 +6,34 @@
             type="com.nic.nammaoorusuper.adapter.FullImageAdapter" />
     </data>
 <com.nic.nammaoorusuper.support.SquareLayout
+    android:layout_margin="@dimen/_5sdp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/thumbnail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/_1sdp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop" />
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <ImageView
+           android:id="@+id/thumbnail"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:padding="@dimen/_1sdp"
+           android:adjustViewBounds="true"
+           android:scaleType="centerCrop" />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:layout_marginBottom="@dimen/_5sdp"
+           android:layout_marginLeft="@dimen/_5sdp"
+           android:padding="@dimen/_5sdp"
+           android:textColor="@color/red"
+           android:textSize="@dimen/_14sdp"
+           android:id="@+id/description"/>
+   </RelativeLayout>
 </com.nic.nammaoorusuper.support.SquareLayout>
 </layout>

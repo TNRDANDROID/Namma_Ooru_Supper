@@ -28,7 +28,7 @@ import com.nic.nammaoorusuper.api.ServerResponse;
 import com.nic.nammaoorusuper.constant.AppConstant;
 import com.nic.nammaoorusuper.dataBase.dbData;
 import com.nic.nammaoorusuper.databinding.FullImageRecyclerBinding;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
 import com.nic.nammaoorusuper.utils.UrlGenerator;
 import com.nic.nammaoorusuper.utils.Utils;
@@ -43,9 +43,9 @@ public class FullImageActivity extends AppCompatActivity implements View.OnClick
     private FullImageRecyclerBinding fullImageRecyclerBinding;
     private FullImageAdapter fullImageAdapter;
     private PrefManager prefManager;
-    private static  ArrayList<PMAYSurvey> activityImage = new ArrayList<>();
+    private static  ArrayList<NOS> activityImage = new ArrayList<>();
     private com.nic.nammaoorusuper.dataBase.dbData dbData = new dbData(this);
-    ArrayList<PMAYSurvey> imageListTree;
+    ArrayList<NOS> imageListTree;
 
     String fin_year="";
     int shg_code=0;
@@ -85,18 +85,18 @@ public class FullImageActivity extends AppCompatActivity implements View.OnClick
 
     }
     public class fetchImagetask extends AsyncTask<Void, Void,
-            ArrayList<PMAYSurvey>> {
+            ArrayList<NOS>> {
         @Override
-        protected ArrayList<PMAYSurvey> doInBackground(Void... params) {
+        protected ArrayList<NOS> doInBackground(Void... params) {
 
             dbData.open();
             activityImage = new ArrayList<>();
-            ArrayList<PMAYSurvey> getBeforeImageDetail = dbData.getParticular_Before_Save_Tree_Image_Table(shg_code,shg_member_code);
-            ArrayList<PMAYSurvey> getAfterImageDetail = dbData.getParticular_After_Save_Tree_Image_Table(shg_code,shg_member_code);
+            ArrayList<NOS> getBeforeImageDetail = dbData.getParticular_Before_Save_Tree_Image_Table(shg_code,shg_member_code);
+            ArrayList<NOS> getAfterImageDetail = dbData.getParticular_After_Save_Tree_Image_Table(shg_code,shg_member_code);
 
             imageListTree = new ArrayList<>();
-            PMAYSurvey imageTree = new PMAYSurvey();
-            PMAYSurvey imageTree1 = new PMAYSurvey();
+            NOS imageTree = new NOS();
+            NOS imageTree1 = new NOS();
             imageTree.setImage(getBeforeImageDetail.get(0).getBefore_photo());
             imageTree1.setImage(getAfterImageDetail.get(0).getAfter_photo());
             imageListTree.add(imageTree);
@@ -107,7 +107,7 @@ public class FullImageActivity extends AppCompatActivity implements View.OnClick
         }
 
         @Override
-        protected void onPostExecute(final ArrayList<PMAYSurvey> imageList) {
+        protected void onPostExecute(final ArrayList<NOS> imageList) {
             super.onPostExecute(imageList);
             setAdapter();
         }
@@ -191,8 +191,8 @@ public class FullImageActivity extends AppCompatActivity implements View.OnClick
             imageListTree = new ArrayList<>();
             for(int i = 0; i < jsonArray.length(); i++ ) {
                 try {
-                    PMAYSurvey imageOnline = new PMAYSurvey();
-                    PMAYSurvey imageOnline1 = new PMAYSurvey();
+                    NOS imageOnline = new NOS();
+                    NOS imageOnline1 = new NOS();
 
                     byte[] before_decodedString = Base64.decode(jsonArray.getJSONObject(i).getString("before_plant_image"), Base64.DEFAULT);
                     Bitmap before_decodedByte = BitmapFactory.decodeByteArray(before_decodedString, 0, before_decodedString.length);

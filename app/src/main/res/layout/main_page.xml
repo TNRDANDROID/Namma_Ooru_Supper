@@ -42,8 +42,8 @@
                         android:layout_marginTop="@dimen/margin"
                         android:text="@string/main_page"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
-                        style="@style/font_circular_bold"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="bold"
                         tools:ignore="RelativeOverlap" />
 
                     <ImageView
@@ -130,6 +130,16 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_below="@+id/tv_name"
+                                        android:layout_centerHorizontal="true"
+                                        android:fontFamily="sans-serif"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/address"
+                                        android:textSize="14sp" />
+                                    <TextView
+                                        android:id="@+id/pv_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/designation"
                                         android:layout_centerHorizontal="true"
                                         android:fontFamily="sans-serif"
                                         android:textAllCaps="true"
@@ -263,6 +273,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:visibility="gone"
                             android:layout_below="@+id/linlay1"
                             android:layout_width="match_parent"
                             android:id="@+id/sync_layout"

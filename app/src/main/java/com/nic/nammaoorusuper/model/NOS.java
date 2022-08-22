@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
  * Created by AchanthiSundar on 01-11-2017.
  */
 
-public class PMAYSurvey {
+public class NOS {
 
     private String distictCode;
     private String districtName;
@@ -378,4 +378,242 @@ public class PMAYSurvey {
 
 
 
+
+    /////////////////////////////New Data
+    private String campaign_id;
+    private String campaign_name;
+    private String campaign_from_date;
+    private String campaign_to_date;
+
+    public String getCampaign_id() {
+        return campaign_id;
+    }
+
+    public void setCampaign_id(String campaign_id) {
+        this.campaign_id = campaign_id;
+    }
+
+    public String getCampaign_name() {
+        return campaign_name;
+    }
+
+    public void setCampaign_name(String campaign_name) {
+        this.campaign_name = campaign_name;
+    }
+
+    public String getCampaign_from_date() {
+        return campaign_from_date;
+    }
+
+    public void setCampaign_from_date(String campaign_from_date) {
+        this.campaign_from_date = campaign_from_date;
+    }
+
+    public String getCampaign_to_date() {
+        return campaign_to_date;
+    }
+
+    public void setCampaign_to_date(String campaign_to_date) {
+        this.campaign_to_date = campaign_to_date;
+    }
+
+    ////Activty List
+    private String campaign_activity_details_id;
+    private String activity_id;
+    private String no_of_items;
+    private String activity_name;
+    private String no_of_images;
+    private String activity_from_date;
+    private String activity_to_date;
+    private String campaign_activity_id;
+
+    public String getCampaign_activity_id() {
+        return campaign_activity_id;
+    }
+
+    public void setCampaign_activity_id(String campaign_activity_id) {
+        this.campaign_activity_id = campaign_activity_id;
+    }
+
+    public String getCampaign_activity_details_id() {
+        return campaign_activity_details_id;
+    }
+
+    public void setCampaign_activity_details_id(String campaign_activity_details_id) {
+        this.campaign_activity_details_id = campaign_activity_details_id;
+    }
+
+    public String getActivity_id() {
+        return activity_id;
+    }
+
+    public void setActivity_id(String activity_id) {
+        this.activity_id = activity_id;
+    }
+
+    public String getNo_of_items() {
+        return no_of_items;
+    }
+
+    public void setNo_of_items(String no_of_items) {
+        this.no_of_items = no_of_items;
+    }
+
+    public String getActivity_name() {
+        return activity_name;
+    }
+
+    public void setActivity_name(String activity_name) {
+        this.activity_name = activity_name;
+    }
+
+    public String getNo_of_images() {
+        return no_of_images;
+    }
+
+    public void setNo_of_images(String no_of_images) {
+        this.no_of_images = no_of_images;
+    }
+
+    public String getActivity_from_date() {
+        return activity_from_date;
+    }
+
+    public void setActivity_from_date(String activity_from_date) {
+        this.activity_from_date = activity_from_date;
+    }
+
+    public String getActivity_to_date() {
+        return activity_to_date;
+    }
+
+    public void setActivity_to_date(String activity_to_date) {
+        this.activity_to_date = activity_to_date;
+    }
+
+    ////Activity SUb List
+    private  String activity_sub_list;
+    private  String item_no;
+    private  String is_taken_survey;
+    private  String is_taken_before_photo;
+    private  String is_taken_after_photo;
+
+    public String getActivity_sub_list() {
+        return activity_sub_list;
+    }
+
+    public void setActivity_sub_list(String activity_sub_list) {
+        this.activity_sub_list = activity_sub_list;
+    }
+
+    public String getItem_no() {
+        return item_no;
+    }
+
+    public void setItem_no(String item_no) {
+        this.item_no = item_no;
+    }
+
+    public String getIs_taken_survey() {
+        return is_taken_survey;
+    }
+
+    public void setIs_taken_survey(String is_taken_survey) {
+        this.is_taken_survey = is_taken_survey;
+    }
+
+    public String getIs_taken_before_photo() {
+        return is_taken_before_photo;
+    }
+
+    public void setIs_taken_before_photo(String is_taken_before_photo) {
+        this.is_taken_before_photo = is_taken_before_photo;
+    }
+
+    public String getIs_taken_after_photo() {
+        return is_taken_after_photo;
+    }
+
+    public void setIs_taken_after_photo(String is_taken_after_photo) {
+        this.is_taken_after_photo = is_taken_after_photo;
+    }
+
+    //Dynamic Widet Type Values;
+    private String campaign_activity_data;
+    private String campaign_data_label;
+    private String campaign_data_type;
+
+    public String getCampaign_activity_data() {
+        return campaign_activity_data;
+    }
+
+    public void setCampaign_activity_data(String campaign_activity_data) {
+        this.campaign_activity_data = campaign_activity_data;
+    }
+
+    public String getCampaign_data_label() {
+        return campaign_data_label;
+    }
+
+    public void setCampaign_data_label(String campaign_data_label) {
+        this.campaign_data_label = campaign_data_label;
+    }
+
+    public String getCampaign_data_type() {
+        return campaign_data_type;
+    }
+
+    public void setCampaign_data_type(String campaign_data_type) {
+        this.campaign_data_type = campaign_data_type;
+    }
+
+
+    //////Photo Category List
+    private String image_category_id;
+    private String image_category_name;
+    private String is_taken;
+    private String campaign_activity_entry_id;
+
+    public String getImage_category_id() {
+        return image_category_id;
+    }
+
+    public void setImage_category_id(String image_category_id) {
+        this.image_category_id = image_category_id;
+    }
+
+    public String getImage_category_name() {
+        return image_category_name;
+    }
+
+    public void setImage_category_name(String image_category_name) {
+        this.image_category_name = image_category_name;
+    }
+
+    public String getIs_taken() {
+        return is_taken;
+    }
+
+    public void setIs_taken(String is_taken) {
+        this.is_taken = is_taken;
+    }
+
+    public String getCampaign_activity_entry_id() {
+        return campaign_activity_entry_id;
+    }
+
+    public void setCampaign_activity_entry_id(String campaign_activity_entry_id) {
+        this.campaign_activity_entry_id = campaign_activity_entry_id;
+    }
+
+    /////View Form
+    private  String label_value;
+
+    public String getLabel_value() {
+        return label_value;
+    }
+
+    public void setLabel_value(String label_value) {
+        this.label_value = label_value;
+    }
 }

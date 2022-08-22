@@ -40,4 +40,10 @@
     <dimen name="input_label_vertical_spacing">8dp</dimen>
     <dimen name="input_label_horizontal_spacing">4dp</dimen>
     <dimen name="radius">50dp</dimen>
+
+    <dimen name="title_text_size">15sp</dimen>
+    <dimen name="large_title_text_size">16sp</dimen>
+    <dimen name="large_content_text_size">15sp</dimen>
+    <dimen name="content_text_size">13sp</dimen>
+    <dimen name="content_title_text_size">13sp</dimen>
 </resources>

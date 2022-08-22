@@ -37,7 +37,7 @@ import com.nic.nammaoorusuper.adapter.CommonAdapter;
 import com.nic.nammaoorusuper.dataBase.DBHelper;
 import com.nic.nammaoorusuper.dataBase.dbData;
 import com.nic.nammaoorusuper.databinding.ActivityNewHomePageBinding;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
 import com.nic.nammaoorusuper.support.MyLocationListener;
 import com.nic.nammaoorusuper.utils.CameraUtils;
@@ -61,10 +61,10 @@ public class NewHomePage extends AppCompatActivity {
     public com.nic.nammaoorusuper.dataBase.dbData dbData = new dbData(this);
     public static DBHelper dbHelper;
     public static SQLiteDatabase db;
-    ArrayList<PMAYSurvey> self_GroupList;
-    ArrayList<PMAYSurvey> self_Group_Member_List;
-    ArrayList<PMAYSurvey> fin_Year_List;
-    ArrayList<PMAYSurvey> type_tree_List;
+    ArrayList<NOS> self_GroupList;
+    ArrayList<NOS> self_Group_Member_List;
+    ArrayList<NOS> fin_Year_List;
+    ArrayList<NOS> type_tree_List;
 
     String fin_year="";
     String shg_name="";
@@ -169,8 +169,8 @@ public class NewHomePage extends AppCompatActivity {
                 if(position>0){
                     self_Group_member_code = self_Group_Member_List.get(newHomePageBinding.groupMemberSpinner.getSelectedItemPosition()).getShg_member_code();
                     member_name = self_Group_Member_List.get(newHomePageBinding.groupMemberSpinner.getSelectedItemPosition()).getMember_name();
-                    ArrayList<PMAYSurvey> getBeforeImageDetail = dbData.getParticular_Before_Save_Tree_Image_Table(self_Group_code,self_Group_member_code);
-                    ArrayList<PMAYSurvey> getAfterImageDetail = dbData.getParticular_After_Save_Tree_Image_Table(self_Group_code,self_Group_member_code);
+                    ArrayList<NOS> getBeforeImageDetail = dbData.getParticular_Before_Save_Tree_Image_Table(self_Group_code,self_Group_member_code);
+                    ArrayList<NOS> getAfterImageDetail = dbData.getParticular_After_Save_Tree_Image_Table(self_Group_code,self_Group_member_code);
                     if(getBeforeImageDetail.size()>0){
                         newHomePageBinding.beforeCaptureIcon.setVisibility(View.GONE);
                         newHomePageBinding.beforeImage.setVisibility(View.VISIBLE);
@@ -309,7 +309,7 @@ public class NewHomePage extends AppCompatActivity {
     public void loadSelfGroupTable(){
         self_GroupList = new ArrayList<>();
         dbData.open();
-        PMAYSurvey self_group_list_item = new PMAYSurvey();
+        NOS self_group_list_item = new NOS();
         self_group_list_item.setShg_code(0);
         self_group_list_item.setShg_name(getResources().getString(R.string.select_self_help_group));
         self_GroupList.add(self_group_list_item);
@@ -321,7 +321,7 @@ public class NewHomePage extends AppCompatActivity {
     public void loadFinYearTable(){
         fin_Year_List = new ArrayList<>();
         dbData.open();
-        PMAYSurvey fin_Year_List_item = new PMAYSurvey();
+        NOS fin_Year_List_item = new NOS();
         fin_Year_List_item.setFin_year(getResources().getString(R.string.select_fin_year));
         fin_Year_List.add(fin_Year_List_item);
         fin_Year_List.addAll(dbData.getAll_Master_Fin_Year());
@@ -332,7 +332,7 @@ public class NewHomePage extends AppCompatActivity {
     public void loadTypeOfTreeTable(){
         type_tree_List = new ArrayList<>();
         dbData.open();
-        PMAYSurvey type_tree_List_item = new PMAYSurvey();
+        NOS type_tree_List_item = new NOS();
         type_tree_List_item.setWork_code(0);
         type_tree_List_item.setWork_name(getResources().getString(R.string.select_type_of_tree));
         type_tree_List.add(type_tree_List_item);
@@ -344,7 +344,7 @@ public class NewHomePage extends AppCompatActivity {
     public void loadSelfGroupMemberTable(){
         self_Group_Member_List = new ArrayList<>();
         dbData.open();
-        PMAYSurvey self_Group_Member_List_item = new PMAYSurvey();
+        NOS self_Group_Member_List_item = new NOS();
         self_Group_Member_List_item.setShg_code(0);
         self_Group_Member_List_item.setShg_member_code(0);
         self_Group_Member_List_item.setMember_name(getResources().getString(R.string.select_self_help_group_member));
@@ -586,7 +586,7 @@ public class NewHomePage extends AppCompatActivity {
             aftervalues.put("after_photo_long",afterofflongTextValue);
             if(type.equals("before_tree")){
 
-                ArrayList<PMAYSurvey> imagCount = dbData.getParticular_Before_Save_Tree_Image_Table(self_Group_code,self_Group_member_code);
+                ArrayList<NOS> imagCount = dbData.getParticular_Before_Save_Tree_Image_Table(self_Group_code,self_Group_member_code);
                 if(imagCount.size()>0){
                     whereClause = "shg_code = ? and shg_member_code = ?";
                     whereArgs = new String[]{String.valueOf(self_Group_code), String.valueOf(self_Group_member_code)};
@@ -605,7 +605,7 @@ public class NewHomePage extends AppCompatActivity {
             }
             else if(type.equals("after_tree")){
 
-                ArrayList<PMAYSurvey> imagCount1 = dbData.getParticular_Before_Save_Tree_Image_Table(self_Group_code,self_Group_member_code);
+                ArrayList<NOS> imagCount1 = dbData.getParticular_Before_Save_Tree_Image_Table(self_Group_code,self_Group_member_code);
                 if(imagCount1.size()>0){
                     whereClause = "shg_code = ? and shg_member_code = ?";
                     whereArgs = new String[]{String.valueOf(self_Group_code), String.valueOf(self_Group_member_code)};
@@ -622,7 +622,7 @@ public class NewHomePage extends AppCompatActivity {
                     }
                 }
 
-                ArrayList<PMAYSurvey> imagCount = dbData.getParticular_After_Save_Tree_Image_Table(self_Group_code,self_Group_member_code);
+                ArrayList<NOS> imagCount = dbData.getParticular_After_Save_Tree_Image_Table(self_Group_code,self_Group_member_code);
                 if(imagCount.size()>0){
                     whereClause = "shg_code = ? and shg_member_code = ?";
                     whereArgs = new String[]{String.valueOf(self_Group_code), String.valueOf(self_Group_member_code)};

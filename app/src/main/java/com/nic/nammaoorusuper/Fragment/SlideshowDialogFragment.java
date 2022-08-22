@@ -15,7 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.nic.nammaoorusuper.R;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class SlideshowDialogFragment extends DialogFragment {
     private String TAG = SlideshowDialogFragment.class.getSimpleName();
-    private ArrayList<PMAYSurvey> images;
+    private ArrayList<NOS> images;
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
     private TextView lblCount, lblTitle, lblDescription,lblDate,lblType;
@@ -45,7 +45,7 @@ public class SlideshowDialogFragment extends DialogFragment {
         lblType = (TextView) v.findViewById(R.id.type);
         lblDate = (TextView) v.findViewById(R.id.date);
 
-        images = (ArrayList<PMAYSurvey>) getArguments().getSerializable("images");
+        images = (ArrayList<NOS>) getArguments().getSerializable("images");
         selectedPosition = getArguments().getInt("position");
 
         Log.i(TAG, "position: " + selectedPosition);
@@ -87,7 +87,7 @@ public class SlideshowDialogFragment extends DialogFragment {
     private void displayMetaInfo(int position) {
         lblCount.setText((position + 1) + " of " + images.size());
 
-        PMAYSurvey image = images.get(position);
+        NOS image = images.get(position);
 //        if(!image.getImageRemark().equalsIgnoreCase("")){
 //            lblDescription.setVisibility(View.VISIBLE);
 //            lblDescription.setText(image.getImageRemark());
@@ -118,7 +118,7 @@ public class SlideshowDialogFragment extends DialogFragment {
 
             ImageView imageViewPreview = (ImageView) view.findViewById(R.id.image_preview);
 
-            PMAYSurvey image = images.get(position);
+            NOS image = images.get(position);
 
             Glide.with(getActivity()).load(image.getImage())
                     .thumbnail(0.5f)

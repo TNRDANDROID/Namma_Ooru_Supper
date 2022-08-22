@@ -31,7 +31,7 @@ import com.nic.nammaoorusuper.dataBase.DBHelper;
 import com.nic.nammaoorusuper.dataBase.dbData;
 
 import com.nic.nammaoorusuper.databinding.LoginScreenBinding;
-import com.nic.nammaoorusuper.model.PMAYSurvey;
+import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
 import com.nic.nammaoorusuper.support.ProgressHUD;
 import com.nic.nammaoorusuper.utils.FontCache;
@@ -71,9 +71,14 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+
         loginScreenBinding = DataBindingUtil.setContentView(this, R.layout.login_screen);
 
         loginScreenBinding.setActivity(this);
+        Utils.statuscolor(LoginScreen.this);
+        /*ActionBar actionBar = getActionBar();
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));*/
         intializeUI();
 
 
@@ -299,6 +304,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                         prefManager.setDistrictName(jsonObject.get(AppConstant.DISTRICT_NAME));
                         prefManager.setBlockName(jsonObject.get(AppConstant.BLOCK_NAME));
                         prefManager.setDesignation(jsonObject.get(AppConstant.DESIG_NAME));
+                        prefManager.setVillageListPvName(jsonObject.getString(AppConstant.PV_NAME));
                         prefManager.setName(String.valueOf(jsonObject.get(AppConstant.DESIG_NAME)));
                         Log.d("userdata", "" + prefManager.getDistrictCode() + prefManager.getBlockCode() + prefManager.getPvCode() + prefManager.getDistrictName() + prefManager.getBlockName() + prefManager.getName());
                         prefManager.setUserPassKey(decryptedKey);
@@ -348,7 +354,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         @Override
         protected Void doInBackground(JSONObject... params) {
             dbData.open();
-            ArrayList<PMAYSurvey> villagelist_count = dbData.getAll_Village(prefManager.getDistrictCode(),prefManager.getBlockCode());
+            ArrayList<NOS> villagelist_count = dbData.getAll_Village(prefManager.getDistrictCode(),prefManager.getBlockCode());
             if (villagelist_count.size() <= 0) {
                 if (params.length > 0) {
                     JSONArray jsonArray = new JSONArray();
@@ -358,7 +364,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                         e.printStackTrace();
                     }
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        PMAYSurvey villageListValue = new PMAYSurvey();
+                        NOS villageListValue = new NOS();
                         try {
                             villageListValue.setDistictCode(jsonArray.getJSONObject(i).getString(AppConstant.DISTRICT_CODE));
                             villageListValue.setBlockCode(jsonArray.getJSONObject(i).getString(AppConstant.BLOCK_CODE));
@@ -384,7 +390,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         @Override
         protected Void doInBackground(JSONObject... params) {
             dbData.open();
-            ArrayList<PMAYSurvey> hablist_count = dbData.getAll_Habitation(prefManager.getDistrictCode(),prefManager.getBlockCode());
+            ArrayList<NOS> hablist_count = dbData.getAll_Habitation(prefManager.getDistrictCode(),prefManager.getBlockCode());
             if (hablist_count.size() <= 0) {
                 if (params.length > 0) {
                     JSONArray jsonArray = new JSONArray();
@@ -394,7 +400,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                         e.printStackTrace();
                     }
                     for (int i = 0; i < jsonArray.length(); i++) {
-                        PMAYSurvey habListValue = new PMAYSurvey();
+                        NOS habListValue = new NOS();
                         try {
                             habListValue.setDistictCode(jsonArray.getJSONObject(i).getString(AppConstant.DISTRICT_CODE));
                             habListValue.setBlockCode(jsonArray.getJSONObject(i).getString(AppConstant.BLOCK_CODE));
