@@ -164,8 +164,8 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     }
 
     public void checkLoginScreen() {
-        /*loginScreenBinding.userName.setText("kpmkcpmvp1u3");
-        loginScreenBinding.password.setText("test123#$");//loc*/
+        loginScreenBinding.userName.setText("kpmkcpmvp1u3");
+        loginScreenBinding.password.setText("test123#$");//loc
         /*loginScreenBinding.userName.setText("kpmutmrvp34u2");
         loginScreenBinding.password.setText("rdas771#$");//pro*/
         final String username = loginScreenBinding.userName.getText().toString().trim();
@@ -184,7 +184,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             //Utils.showAlert(this, getResources().getString(R.string.no_internet));
             AlertDialog.Builder ab = new AlertDialog.Builder(
                     LoginScreen.this);
-            ab.setMessage("Internet Connection is not avaliable..Please Turn ON Network Connection OR Continue With Off-line Mode..");
+            ab.setMessage("Internet Connection is not available..Please Turn ON Network Connection OR Continue With Off-line Mode..");
             ab.setPositiveButton("Settings",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog,

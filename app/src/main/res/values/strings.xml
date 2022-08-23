@@ -50,8 +50,16 @@
 
     <string name="do_u_want_to_delete">Do you want to delete?</string>
     <string name="do_u_want_to_upload">Do you want to Upload?</string>
-    <string name="entry_form">Entry Form</string>
+    <string name="entry_form">அடிப்படை தகவல் படிவம்</string>
     <string name="view_data">View Data</string>
+    <string name="take_photo">புகைப்படம் எடுக்க</string>
+    <string name="view_form">தகவல் சரி பார்க்க</string>
+    <string name="form">Form</string>
+    <string name="location">அமைந்துள்ள இடம்</string>
+    <string name="enter_location">அமைந்துள்ள இடம்</string>
+    <string name="description">தகவல் குறிப்பு</string>
+    <string name="enter_description">தகவல் குறிப்பு</string>
+    <string name="additional_details">கூடுதல் விவரங்கள்</string>
 
 
 </resources>

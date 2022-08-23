@@ -319,10 +319,10 @@ public class ViewFormActivity extends AppCompatActivity implements Api.ServerRes
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            activityViewFormBinding.locationEt.setText(location_details);
+            activityViewFormBinding.locationEt.setText(Utils.NotNullString(location_details));
             activityViewFormBinding.locationEt.setFocusable(false);
             activityViewFormBinding.descriptionEt.setFocusable(false);
-            activityViewFormBinding.descriptionEt.setText(location_description);
+            activityViewFormBinding.descriptionEt.setText(Utils.NotNullString(location_description));
             if(label_list.size()>0){
                 activityViewFormBinding.dynamicWidgetRecycler.setVisibility(View.VISIBLE);
                 activityViewFormBinding.noDataIcon.setVisibility(View.GONE);

@@ -273,11 +273,13 @@ public class LocationSaveActivity extends AppCompatActivity implements Api.Serve
             super.onPostExecute(aVoid);
             if(dynamicWidgetList.size()>0){
                 activityLocationSaveBinding.dynamicWidgetRecycler.setVisibility(View.VISIBLE);
+                activityLocationSaveBinding.dynamicWidgetLayout.setVisibility(View.VISIBLE);
                 activityLocationSaveBinding.noDataIcon.setVisibility(View.GONE);
                 dynamicRecyclerWidgetAdapter = new DynamicRecyclerWidgetAdapter(LocationSaveActivity.this,dynamicWidgetList,dbData);
                 activityLocationSaveBinding.dynamicWidgetRecycler.setAdapter(dynamicRecyclerWidgetAdapter);
             }
             else {
+                activityLocationSaveBinding.dynamicWidgetLayout.setVisibility(View.GONE);
                 activityLocationSaveBinding.dynamicWidgetRecycler.setVisibility(View.GONE);
                 activityLocationSaveBinding.noDataIcon.setVisibility(View.VISIBLE);
                 activityLocationSaveBinding.dynamicWidgetRecycler.setAdapter(null);
@@ -348,30 +350,9 @@ public class LocationSaveActivity extends AppCompatActivity implements Api.Serve
     }
 
     public void checkValidation(){
-        if(!activityLocationSaveBinding.locationEt.getText().toString().equals("")){
+       /* if(!activityLocationSaveBinding.locationEt.getText().toString().equals("")){
             if(!activityLocationSaveBinding.descriptionEt.getText().toString().equals("")){
-              if(dynamicWidgetList.size()>0){
-                  if(checkListItemsText()){
-                      if(Utils.isOnline()){
-                          saveLocationDetails();
-                      }
-                      else {
-                          Utils.showAlert(LocationSaveActivity.this,"No Internet");
-                      }
-                  }
-                  else {
-                      Utils.showAlert(LocationSaveActivity.this,"Please Fill All Details");
-                  }
-              }
-              else {
-                      if(Utils.isOnline()){
-                          saveLocationDetails();
-                      }
 
-                  else {
-                      Utils.showAlert(LocationSaveActivity.this,"Please Fill All Details");
-                  }
-              }
             }
             else {
                 Utils.showAlert(LocationSaveActivity.this,"Please Enter Description");
@@ -379,6 +360,28 @@ public class LocationSaveActivity extends AppCompatActivity implements Api.Serve
         }
         else {
             Utils.showAlert(LocationSaveActivity.this,"Please Enter Location");
+        }*/
+        if(dynamicWidgetList.size()>0){
+            if(checkListItemsText()){
+                if(Utils.isOnline()){
+                    saveLocationDetails();
+                }
+                else {
+                    Utils.showAlert(LocationSaveActivity.this,"No Internet");
+                }
+            }
+            else {
+                Utils.showAlert(LocationSaveActivity.this,"Please Fill All Details");
+            }
+        }
+        else {
+            if(Utils.isOnline()){
+                saveLocationDetails();
+            }
+
+            else {
+                Utils.showAlert(LocationSaveActivity.this,"Please Fill All Details");
+            }
         }
     }
 
@@ -433,8 +436,20 @@ public class LocationSaveActivity extends AppCompatActivity implements Api.Serve
             data_set.put("activity_id",activity_id);
             data_set.put("campaign_activity_id",campaign_activity_id);
             data_set.put("item_no",item_no);
-            activity_entry_list_items.put("location_details",activityLocationSaveBinding.locationEt.getText().toString());
-            activity_entry_list_items.put("location_description",activityLocationSaveBinding.descriptionEt.getText().toString());
+            if(!activityLocationSaveBinding.locationEt.getText().toString().equals("")){
+                activity_entry_list_items.put("location_details",activityLocationSaveBinding.locationEt.getText().toString());
+            }
+            else {
+                activity_entry_list_items.put("location_details","");
+            }
+            if(!activityLocationSaveBinding.descriptionEt.getText().toString().equals("")){
+                activity_entry_list_items.put("location_description",activityLocationSaveBinding.descriptionEt.getText().toString());
+
+            }
+            else {
+                activity_entry_list_items.put("location_description","");
+            }
+
             data_set.put("activity_entry_list",activity_entry_list_items);
             if(dynamicWidgetList.size()>0){
                 int itemCount = activityLocationSaveBinding.dynamicWidgetRecycler.getAdapter().getItemCount();

@@ -46,7 +46,11 @@ public class SubActivityList extends AppCompatActivity implements Api.ServerResp
     private String campaign_id;
     private String activity_id;
     private String campaign_activity_id;
+    private String is_taken;
+    private String item_no;
     private String no_of_images;
+    private String go_flag;
+    private int position;
 
     ArrayList<NOS> activitySubList=new ArrayList<>();
     ActivitySubListAdapter activityListAdapter;
@@ -76,12 +80,66 @@ public class SubActivityList extends AppCompatActivity implements Api.ServerResp
             getSubActivityList();
         }
 
+        subListBinding.recyclerViewsLayout.setVisibility(View.VISIBLE);
+        subListBinding.dashBoardLayout.setVisibility(View.GONE);
+
+        subListBinding.entryForm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Utils.isOnline()){
+                    Intent intent = new Intent(SubActivityList.this,LocationSaveActivity.class);
+                    intent.putExtra("activity_id",activity_id);
+                    intent.putExtra("campaign_activity_id",campaign_activity_id);
+                    intent.putExtra("hab_code",hab_code);
+                    intent.putExtra("campaign_id",campaign_id);
+                    intent.putExtra("item_no",item_no );
+                    intent.putExtra("no_of_images", no_of_images);
+                    subListBinding.recyclerViewsLayout.setVisibility(View.VISIBLE);
+                    subListBinding.dashBoardLayout.setVisibility(View.GONE);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                }
+                else {
+                    Utils.showAlert(SubActivityList.this,"No Internet");
+                }
+            }
+        });
+
+        subListBinding.takePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Utils.isOnline()){
+                    go_flag = "take_photo";
+                    getActivityEntryId();
+                }
+                else {
+                    Utils.showAlert(SubActivityList.this,"No Internet");
+                }
+            }
+        });
+        subListBinding.viewForm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Utils.isOnline()){
+                    go_flag = "view_form";
+                    getActivityEntryId();
+                }
+                else {
+                    Utils.showAlert(SubActivityList.this,"No Internet");
+                }
+            }
+        });
     }
 
     public void activityListItemClicked(int pos){
+        position= pos;
         activity_id = activitySubList.get(pos).getActivity_id();
         campaign_activity_id = activitySubList.get(pos).getCampaign_activity_id();
-        if(Utils.isOnline()){
+        is_taken =activitySubList.get(pos).getIs_taken();
+        item_no =activitySubList.get(pos).getItem_no();
+        subListBinding.recyclerViewsLayout.setVisibility(View.GONE);
+        subListBinding.dashBoardLayout.setVisibility(View.VISIBLE);
+       /* if(Utils.isOnline()){
             Intent intent = new Intent(SubActivityList.this,SubListDashBoard.class);
             intent.putExtra("activity_id",activity_id);
             intent.putExtra("campaign_activity_id",campaign_activity_id);
@@ -94,6 +152,20 @@ public class SubActivityList extends AppCompatActivity implements Api.ServerResp
         }
         else {
             Utils.showAlert(SubActivityList.this,"No Internet");
+        }*/
+        if(is_taken.equals("Y")){
+            subListBinding.entryForm.setEnabled(true);
+            subListBinding.viewForm.setEnabled(true);
+            subListBinding.takePhoto.setEnabled(true);
+            subListBinding.takePhoto.setBackgroundDrawable(getResources().getDrawable(R.drawable.corner_strong_rect_bg_color));
+            subListBinding.viewForm.setBackgroundDrawable(getResources().getDrawable(R.drawable.corner_strong_rect_bg_color));
+        }
+        else {
+            subListBinding.entryForm.setEnabled(true);
+            subListBinding.viewForm.setEnabled(false);
+            subListBinding.takePhoto.setEnabled(false);
+            subListBinding.takePhoto.setBackgroundDrawable(getResources().getDrawable(R.drawable.blured_shadow));
+            subListBinding.viewForm.setBackgroundDrawable(getResources().getDrawable(R.drawable.blured_shadow));
         }
 
     }
@@ -119,6 +191,19 @@ public class SubActivityList extends AppCompatActivity implements Api.ServerResp
                     subListBinding.activityRecycler.setAdapter(null);
                 }
                 Log.d("sub_activity_details", "" + responseDecryptedBlockKey);
+            }
+            if ("get_activity_entry_details".equals(urlType) && loginResponse != null) {
+                String key = loginResponse.getString(AppConstant.ENCODE_DATA);
+                String responseDecryptedBlockKey = Utils.decrypt(prefManager.getUserPassKey(), key);
+                JSONObject jsonObject = new JSONObject(responseDecryptedBlockKey);
+                if (jsonObject.getString("STATUS").equalsIgnoreCase("OK") && jsonObject.getString("RESPONSE").equalsIgnoreCase("OK")) {
+                    new InsertViewFormList().execute(jsonObject);
+
+                }
+                else {
+                    Utils.showAlert(SubActivityList.this,jsonObject.getString("MESSAGE"));
+                }
+                Log.d("activity_entry_details", "" + responseDecryptedBlockKey);
             }
 
         } catch (JSONException e) {
@@ -220,6 +305,133 @@ public class SubActivityList extends AppCompatActivity implements Api.ServerResp
                 subListBinding.activityRecycler.setAdapter(null);
             }
         }
+    }
+    public class InsertViewFormList extends AsyncTask<JSONObject, Void, Void> {
+        String hab_code;
+        String activity_id;
+        String campaign_id;
+        String item_no;
+        String campaign_activity_id;
+        String campaign_activity_entry_id;
+        @Override
+        protected Void doInBackground(JSONObject... params) {
+
+            if (params.length > 0) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject = params[0].getJSONObject(AppConstant.JSON_DATA);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if(jsonObject.length()>0){
+                    JSONObject activity_entry_list = new JSONObject();
+                    JSONArray activity_entry_label_list = new JSONArray();
+                    //label_list = new ArrayList<>();
+                    try {
+                        activity_entry_list = jsonObject.getJSONObject("activity_entry_list");
+                        hab_code= activity_entry_list.getString("hab_code");
+                        activity_id= activity_entry_list.getString("activity_id");
+                        campaign_id= activity_entry_list.getString("campaign_id");
+                        item_no= activity_entry_list.getString("item_no");
+                        campaign_activity_id= activity_entry_list.getString("campaign_activity_id");
+                        campaign_activity_entry_id= activity_entry_list.getString("campaign_activity_entry_id");
+
+
+                    }
+                    catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+
+
+            return null;
+
+
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if(go_flag.equals("take_photo")){
+                Intent intent = new Intent(SubActivityList.this, PhotoCategoryList.class);
+                intent.putExtra("activity_id",activity_id);
+                intent.putExtra("campaign_activity_id",campaign_activity_id);
+                intent.putExtra("hab_code",hab_code);
+                intent.putExtra("campaign_id",campaign_id);
+                intent.putExtra("campaign_activity_entry_id",campaign_activity_entry_id);
+                intent.putExtra("item_no", item_no);
+                intent.putExtra("no_of_images", no_of_images);
+                subListBinding.recyclerViewsLayout.setVisibility(View.VISIBLE);
+                subListBinding.dashBoardLayout.setVisibility(View.GONE);
+                startActivity(intent);
+                //finish();
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+
+            else {
+                Intent intent = new Intent(SubActivityList.this, ViewFormActivity.class);
+                intent.putExtra("activity_id",activity_id);
+                intent.putExtra("campaign_activity_id",campaign_activity_id);
+                intent.putExtra("hab_code",hab_code);
+                intent.putExtra("campaign_id",campaign_id);
+                intent.putExtra("campaign_activity_entry_id",campaign_activity_entry_id);
+                intent.putExtra("item_no", item_no);
+                intent.putExtra("no_of_images", no_of_images);
+                subListBinding.recyclerViewsLayout.setVisibility(View.VISIBLE);
+                subListBinding.dashBoardLayout.setVisibility(View.GONE);
+                startActivity(intent);
+                //finish();
+                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(subListBinding.dashBoardLayout.getVisibility()==View.VISIBLE){
+            subListBinding.dashBoardLayout.setVisibility(View.GONE);
+            subListBinding.recyclerViewsLayout.setVisibility(View.VISIBLE);
+        }
+        else {
+            super.onBackPressed();
+        }
+
+    }
+
+    public void getActivityEntryId() {
+        try {
+            new ApiService(this).makeJSONObjectRequest("get_activity_entry_details", Api.Method.POST, UrlGenerator.getPMAYListUrl(), activity_entry_id_en_JsonParams(), "not cache", this);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    public JSONObject activity_entry_id_en_JsonParams() throws JSONException {
+        String authKey = Utils.encrypt(prefManager.getUserPassKey(), getResources().getString(R.string.init_vector), activity_entry_id_no_JsonParams().toString());
+        JSONObject dataSet = new JSONObject();
+        dataSet.put(AppConstant.KEY_USER_NAME, prefManager.getUserName());
+        dataSet.put(AppConstant.DATA_CONTENT, authKey);
+        Log.d("save_data", "" + authKey);
+        return dataSet;
+    }
+
+    private JSONObject activity_entry_id_no_JsonParams(){
+        JSONObject data_set = new JSONObject();
+        try {
+            data_set.put(AppConstant.KEY_SERVICE_ID,"get_activity_entry_details");
+            data_set.put("campaign_id",campaign_id);
+            data_set.put("hab_code",hab_code);
+            data_set.put("activity_id",activity_id);
+            data_set.put("campaign_activity_id",campaign_activity_id);
+            data_set.put("item_no",item_no);
+
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+        }
+        return data_set;
     }
 
     @Override

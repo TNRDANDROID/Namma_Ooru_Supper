@@ -1207,5 +1207,21 @@ public class Utils {
             window.setBackgroundDrawable(background);
         }
     }
+    public static String NotNullString(String text){
+        if(text.equals("")){
+            return "-";
+        }
+        else if(text.equals("null")){
+            return "-";
+
+        }
+        else if(text==null){
+            return "-";
+
+        }
+        else {
+            return text;
+        }
+    }
 
 }

@@ -15,6 +15,7 @@ import com.nic.nammaoorusuper.R;
 import com.nic.nammaoorusuper.databinding.DynamicRecyclerItemViewBinding;
 import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
+import com.nic.nammaoorusuper.utils.Utils;
 
 import java.util.List;
 
@@ -61,9 +62,11 @@ public class ViewFormAdapter extends RecyclerView.Adapter<ViewFormAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull final ViewFormAdapter.MyViewHolder holder, final int position) {
+        holder.dynamicRecyclerItemViewBinding.descriptionEt.setTextColor(context.getResources().getColor(R.color.tool_bar_blue));
         holder.dynamicRecyclerItemViewBinding.enterDescription.setText(widgetList.get(position).getCampaign_data_label());
         holder.dynamicRecyclerItemViewBinding.descriptionEt.setFocusable(false);
-        holder.dynamicRecyclerItemViewBinding.descriptionEt.setText(widgetList.get(position).getLabel_value());
+        holder.dynamicRecyclerItemViewBinding.descriptionEt.setText(Utils.NotNullString(widgetList.get(position).getLabel_value()));
+
 
 
     }

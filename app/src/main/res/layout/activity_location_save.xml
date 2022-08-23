@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/margin"
-                android:text="Form"
+                android:text="@string/entry_form"
                 android:id="@+id/tittle"
                 android:gravity="center"
                 android:textStyle="bold"
@@ -87,7 +87,7 @@
                         android:layout_marginLeft="@dimen/margin_left_20dp"
                         android:layout_marginTop="@dimen/padding"
                         android:layout_marginRight="@dimen/margin_left_20dp"
-                        android:text="Location"
+                        android:text="@string/location"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp"
                         customfontdemo:fontName="@string/font_circular_bold" />
@@ -115,7 +115,7 @@
                             android:singleLine="true"
                             android:textSize="@dimen/_12sdp"
                             android:inputType="text"
-                            android:hint="Enter Location"
+                            android:hint="@string/enter_location"
                             android:background="@color/full_transparent"
                             android:gravity="left" />
 
@@ -151,7 +151,7 @@
                         android:layout_marginLeft="@dimen/margin_left_20dp"
                         android:layout_marginTop="@dimen/padding"
                         android:layout_marginRight="@dimen/margin_left_20dp"
-                        android:text="Description"
+                        android:text="@string/description"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp"
                         customfontdemo:fontName="@string/font_circular_bold" />
@@ -179,7 +179,7 @@
                             android:singleLine="true"
                             android:textSize="@dimen/_12sdp"
                             android:inputType="text"
-                            android:hint="Enter Description"
+                            android:hint="@string/enter_description"
                             android:background="@color/full_transparent"
                             android:gravity="left" />
 
@@ -210,9 +210,22 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp">
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:id="@+id/dynamic_widget_layout">
+                    <com.nic.nammaoorusuper.support.MyCustomTextView
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/additional_tittle"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="bold"
+                        android:textColor="@color/red"
+                        android:text="@string/additional_details"/>
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_below="@id/additional_tittle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/dynamic_widget_recycler"/>

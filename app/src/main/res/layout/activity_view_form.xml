@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/margin"
-                android:text="Form"
+                android:text="@string/view_form"
                 android:id="@+id/tittle"
                 android:gravity="center"
                 android:textStyle="bold"
@@ -76,7 +76,7 @@
                         android:layout_marginLeft="@dimen/margin_left_20dp"
                         android:layout_marginTop="@dimen/padding"
                         android:layout_marginRight="@dimen/margin_left_20dp"
-                        android:text="Location"
+                        android:text="@string/location"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp"
                         customfontdemo:fontName="@string/font_circular_bold" />
@@ -93,7 +93,7 @@
                         android:orientation="vertical">
 
 
-                        <EditText
+                        <TextView
                             android:layout_toLeftOf="@+id/location_audio_icon"
                             android:id="@+id/location_et"
                             android:layout_width="match_parent"
@@ -103,8 +103,7 @@
                             android:layout_marginRight="10dp"
                             android:singleLine="true"
                             android:textSize="@dimen/_12sdp"
-                            android:inputType="text"
-                            android:hint="Enter Location"
+                            android:textColor="@color/tool_bar_blue"
                             android:background="@color/full_transparent"
                             android:gravity="left" />
 
@@ -142,7 +141,7 @@
                         android:layout_marginLeft="@dimen/margin_left_20dp"
                         android:layout_marginTop="@dimen/padding"
                         android:layout_marginRight="@dimen/margin_left_20dp"
-                        android:text="Description"
+                        android:text="@string/description"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp"
                         customfontdemo:fontName="@string/font_circular_bold" />
@@ -159,7 +158,7 @@
                         android:orientation="vertical">
 
 
-                        <EditText
+                        <TextView
                             android:layout_toLeftOf="@+id/description_audio_icon"
                             android:id="@+id/description_et"
                             android:layout_width="match_parent"
@@ -169,8 +168,7 @@
                             android:layout_marginRight="10dp"
                             android:singleLine="true"
                             android:textSize="@dimen/_12sdp"
-                            android:inputType="text"
-                            android:hint="Enter Description"
+                            android:textColor="@color/tool_bar_blue"
                             android:background="@color/full_transparent"
                             android:gravity="left" />
 
