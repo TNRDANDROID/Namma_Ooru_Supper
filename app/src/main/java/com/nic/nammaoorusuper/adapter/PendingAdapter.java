@@ -1,6 +1,7 @@
 package com.nic.nammaoorusuper.adapter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -83,7 +87,22 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         holder.pendingAdapterBinding.habName.setText(pendingListValues.get(position).getHabitationName());
-        holder.pendingAdapterBinding.activityName.setText(pendingListValues.get(position).getActivity_name());
+        holder.pendingAdapterBinding.activityName.setText(pendingListValues.get(position).getActivity_name()+" "+pendingListValues.get(position).getItem_no());
+
+        String campaign_id = pendingListValues.get(position).getCampaign_id();
+        String activity_id = pendingListValues.get(position).getActivity_id();
+        String campaign_activity_id = pendingListValues.get(position).getCampaign_activity_id();
+        String location_save_details_primary_id = pendingListValues.get(position).getLocation_save_details_primary_id();
+        String item_no = pendingListValues.get(position).getItem_no();
+        String hab_code = pendingListValues.get(position).getHabCode();
+        dbData.open();
+        ArrayList<NOS> image_count = new ArrayList<>(dbData.get_Particular_Save_Image_Details_List(campaign_id,activity_id,campaign_activity_id,location_save_details_primary_id,item_no,prefManager.getDistrictCode(),prefManager.getBlockCode(),prefManager.getPvCode(),hab_code,"","save"));
+        if(image_count.size()>0){
+            holder.pendingAdapterBinding.upload.setVisibility(View.VISIBLE);
+        }
+        else {
+            holder.pendingAdapterBinding.upload.setVisibility(View.GONE);
+        }
         holder.pendingAdapterBinding.upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,13 +113,13 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.MyViewHo
         holder.pendingAdapterBinding.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deletePending(position);
+                save_and_delete_alert(position,"delete");
             }
         });
         holder.pendingAdapterBinding.upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadPending(position);
+                save_and_delete_alert(position,"save");
             }
         });
 
@@ -109,7 +128,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.MyViewHo
     }
 
 
-    public void deletePending(int position) {
+    private void deletePending(int position) {
         String campaign_id = pendingListValues.get(position).getCampaign_id();
         String activity_id = pendingListValues.get(position).getActivity_id();
         String campaign_activity_id = pendingListValues.get(position).getCampaign_activity_id();
@@ -144,7 +163,7 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.MyViewHo
 
 
 
-    public void uploadPending(int position) {
+    private void uploadPending(int position) {
         String json_values = pendingListValues.get(position).getJson_value();
 
         try {
@@ -192,5 +211,48 @@ public class PendingAdapter extends RecyclerView.Adapter<PendingAdapter.MyViewHo
         file.delete();
 
     }
+    public void save_and_delete_alert(int position,String save_delete){
+        try {
+            final Dialog dialog = new Dialog(context);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setCancelable(false);
+            dialog.setContentView(R.layout.alert_dialog);
 
+            TextView text = (TextView) dialog.findViewById(R.id.tv_message);
+            if(save_delete.equals("save")) {
+                text.setText(context.getResources().getString(R.string.do_u_want_to_upload));
+            }
+            else if(save_delete.equals("delete")){
+                text.setText(context.getResources().getString(R.string.do_u_want_to_delete));
+            }
+
+            Button yesButton = (Button) dialog.findViewById(R.id.btn_ok);
+            Button noButton = (Button) dialog.findViewById(R.id.btn_cancel);
+            noButton.setVisibility(View.VISIBLE);
+            noButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            yesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(save_delete.equals("save")) {
+                        uploadPending(position);
+                        dialog.dismiss();
+                    }
+                    else if(save_delete.equals("delete")) {
+                        deletePending(position);
+                        dialog.dismiss();
+                    }
+                }
+            });
+
+            dialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }
