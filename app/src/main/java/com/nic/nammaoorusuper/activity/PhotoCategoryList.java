@@ -182,14 +182,18 @@ public class PhotoCategoryList extends AppCompatActivity implements Api.ServerRe
     }
     private JSONObject photo_category_no_JsonParams() {
         JSONObject dataSet = new JSONObject();
+        JSONArray activity_details = new JSONArray();
         try {
             dataSet.put(AppConstant.KEY_SERVICE_ID, "campaign_activity_image_category_list");
             dataSet.put("hab_code",hab_code);
             dataSet.put("campaign_id", campaign_id);
-            dataSet.put("activity_id", activity_id);
-            dataSet.put("campaign_activity_id", campaign_activity_id);
-            dataSet.put("campaign_activity_entry_id", campaign_activity_entry_id);
-            dataSet.put("item_no", item_no);
+            JSONObject activity_details_item = new JSONObject();
+            activity_details_item.put("activity_id", activity_id);
+            activity_details_item.put("campaign_activity_id", campaign_activity_id);
+            activity_details_item.put("campaign_activity_entry_id", campaign_activity_entry_id);
+            activity_details_item.put("item_no", item_no);
+            activity_details.put(activity_details_item);
+            dataSet.put("activity_details", activity_details);
             Log.d("category", "" + dataSet);
         }
         catch (Exception e){
