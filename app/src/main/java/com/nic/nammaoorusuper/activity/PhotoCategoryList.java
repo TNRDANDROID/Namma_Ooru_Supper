@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -104,6 +105,7 @@ public class PhotoCategoryList extends AppCompatActivity implements Api.ServerRe
                 intent.putExtra("item_no", photoCategoryList.get(pos).getItem_no());
                 intent.putExtra("no_of_images", no_of_images);
                 intent.putExtra("image_category_id", photoCategoryList.get(pos).getImage_category_id());
+                intent.putExtra("On_Off_Type", "Online");
                 startActivity(intent);
             }
             else {
@@ -247,7 +249,8 @@ public class PhotoCategoryList extends AppCompatActivity implements Api.ServerRe
                 photoCategoryListBinding.noDataIcon.setVisibility(View.GONE);
                 photoCategoryListBinding.categoryRecycler.setVisibility(View.VISIBLE);
                 photoCategoryListBinding.imageRecycler.setVisibility(View.GONE);
-                categoryListAdapter =new CategoryListAdapter(PhotoCategoryList.this, photoCategoryList,dbData);
+                categoryListAdapter =new CategoryListAdapter(PhotoCategoryList.this, photoCategoryList,dbData,"",
+                        campaign_id,activity_id,campaign_activity_id,"",item_no,hab_code);
                 photoCategoryListBinding.categoryRecycler.setAdapter(categoryListAdapter);
             }
             else {
@@ -257,6 +260,7 @@ public class PhotoCategoryList extends AppCompatActivity implements Api.ServerRe
             }
         }
     }
+    @SuppressLint("StaticFieldLeak")
     public class InsertImageList extends AsyncTask<JSONObject, Void, Void> {
 
         @Override

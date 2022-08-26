@@ -4,7 +4,9 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -50,6 +52,7 @@ import com.nic.nammaoorusuper.constant.AppConstant;
 import com.nic.nammaoorusuper.dataBase.DBHelper;
 import com.nic.nammaoorusuper.dataBase.dbData;
 import com.nic.nammaoorusuper.databinding.CameraScreenBinding;
+import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
 import com.nic.nammaoorusuper.support.MyLocationListener;
 import com.nic.nammaoorusuper.utils.CameraUtils;
@@ -61,6 +64,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,11 +103,15 @@ public class CameraScreen extends AppCompatActivity implements View.OnClickListe
     private String hab_code;
     private String campaign_id;
     private String activity_id;
+    private String activity_name;
+    private String hab_name;
     private String campaign_activity_id;
     private String campaign_activity_entry_id;
+    private String location_save_details_primary_id;
     private String image_category_id;
     private String item_no;
     private String no_of_images;
+    private String On_Off_Type;
     ///Image With Description
     ImageView imageView, image_view_preview;
     TextView latitude_text, longtitude_text;
@@ -136,7 +145,13 @@ public class CameraScreen extends AppCompatActivity implements View.OnClickListe
         cameraScreenBinding.btnSaveLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveImage();
+                if(On_Off_Type.equals("Offline")){
+                    saveOfflineImage();
+                }
+                else {
+                    saveImage();
+                }
+
             }
         });
     }
@@ -146,15 +161,26 @@ public class CameraScreen extends AppCompatActivity implements View.OnClickListe
         campaign_id = getIntent().getStringExtra("campaign_id");
         campaign_activity_id = getIntent().getStringExtra("campaign_activity_id");
         activity_id = getIntent().getStringExtra("activity_id");
+        activity_name = getIntent().getStringExtra("activity_name");
+        hab_name = getIntent().getStringExtra("hab_name");
         hab_code = getIntent().getStringExtra("hab_code");
-        campaign_activity_entry_id = getIntent().getStringExtra("campaign_activity_entry_id");
+
         image_category_id = getIntent().getStringExtra("image_category_id");
         item_no = getIntent().getStringExtra("item_no");
         no_of_images = getIntent().getStringExtra("no_of_images");
+        On_Off_Type = getIntent().getStringExtra("On_Off_Type");
         cameraScreenBinding.singleCaptureLayout.setVisibility(View.GONE);
         cameraScreenBinding.multiCaptureLayout.setVisibility(View.VISIBLE);
         updateView(CameraScreen.this,cameraScreenBinding.cameraLayout,"","");
 
+        if(On_Off_Type.equals("Offline")){
+            cameraScreenBinding.btnSaveLocal.setText("Save Local");
+            location_save_details_primary_id = getIntent().getStringExtra("location_save_details_primary_id");
+        }
+        else {
+            cameraScreenBinding.btnSaveLocal.setText("Sync Data");
+            campaign_activity_entry_id = getIntent().getStringExtra("campaign_activity_entry_id");
+        }
 
         mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mlocListener = new MyLocationListener();
@@ -170,8 +196,14 @@ public class CameraScreen extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
 
             case R.id.btn_save:
-                saveImage();
-            break;
+                if(On_Off_Type.equals("Offline")){
+                    saveOfflineImage();
+                }
+                else {
+                    saveImage();
+                }
+
+                break;
         }
     }
 
@@ -540,7 +572,8 @@ public class CameraScreen extends AppCompatActivity implements View.OnClickListe
         myEditTextView = (EditText) hiddenInfo.findViewById(R.id.description);
         latitude_text = hiddenInfo.findViewById(R.id.latitude);
         longtitude_text = hiddenInfo.findViewById(R.id.longtitude);
-        description_layout.setVisibility(View.GONE);
+        description_layout.setVisibility(View.VISIBLE);
+        imageView_close.setVisibility(View.GONE);
         imageView_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -615,6 +648,7 @@ public class CameraScreen extends AppCompatActivity implements View.OnClickListe
                             Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
                             image_str = BitMapToString(bitmap);
 
+                            image_json.put("image_category_id",image_category_id);
                             image_json.put("image_serial_no",count);
                             image_json.put("image_lat",latitude_text.getText().toString());
                             image_json.put("image_long",longtitude_text.getText().toString());
@@ -637,6 +671,99 @@ public class CameraScreen extends AppCompatActivity implements View.OnClickListe
                     else {
                         Utils.showAlert(CameraScreen.this,"no Internet");
                     }
+                }
+            }
+        }
+        else {
+            Utils.showAlert(CameraScreen.this,"Please Capture Image");
+        }
+        focusOnView(cameraScreenBinding.scrollView);
+    }
+    public void saveOfflineImage() {
+        int childCount = cameraScreenBinding.cameraLayout.getChildCount();
+        int count = 0;
+        if(childCount == Integer.parseInt(no_of_images)){
+            if (childCount > 0) {
+                if(On_Off_Type.equals("Offline")){
+                    dbData.open();
+                    ArrayList<NOS> image_count = new ArrayList<>(dbData.get_Particular_Save_Image_Details_List(campaign_id,activity_id,campaign_activity_id,location_save_details_primary_id,item_no,prefManager.getDistrictCode(),prefManager.getBlockCode(),prefManager.getPvCode(),hab_code,image_category_id,""));
+                    if(image_count.size()>0){
+                        String whereClass = "campaign_id = ? and activity_id = ? and campaign_activity_id = ? and location_save_details_primary_id = ? and dcode = ? and bcode = ? and pvcode = ? and hab_code = ? and item_no = ? and image_category_id = ?";
+                        String[] whereargs = new String[]{campaign_id,activity_id,campaign_activity_id,location_save_details_primary_id,prefManager.getDistrictCode(),prefManager.getBlockCode(),prefManager.getPvCode(),hab_code,item_no,image_category_id};
+                        db.delete(DBHelper.SAVE_IMAGE_DETAILS_TABLE,whereClass,whereargs);
+                        for(int i=0;i<image_count.size();i++){
+                            String file_path = image_count.get(i).getImage_path();
+                            deleteFileDirectory(file_path);
+
+                        }
+                    }
+                }
+                for (int i = 0; i < childCount; i++) {
+                    View vv = cameraScreenBinding.cameraLayout.getChildAt(i);
+                    imageView = vv.findViewById(R.id.image_view);
+                    myEditTextView = vv.findViewById(R.id.description);
+                    latitude_text = vv.findViewById(R.id.latitude);
+                    longtitude_text = vv.findViewById(R.id.longtitude);
+
+
+                    if (imageView.getDrawable() != null) {
+                        //if(!myEditTextView.getText().toString().equals("")){
+                        count = count + 1;
+                        byte[] imageInByte = new byte[0];
+                        String image_str = "";
+                        String description = "";
+                        String image_path = "";
+                        try {
+                            description = myEditTextView.getText().toString();
+                            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                            //image_str = BitMapToString(bitmap);
+                            image_path = fileDirectory(bitmap,"Category",String.valueOf(i));
+
+                            if (On_Off_Type.equals("Offline")){
+                                ContentValues contentValues = new ContentValues();
+                                try {
+                                    contentValues.put("campaign_id",campaign_id);
+                                    contentValues.put("activity_id",activity_id);
+                                    contentValues.put("location_save_details_primary_id",location_save_details_primary_id);
+                                    contentValues.put("campaign_activity_id",campaign_activity_id);
+                                    contentValues.put("dcode",prefManager.getDistrictCode());
+                                    contentValues.put("bcode",prefManager.getBlockCode());
+                                    contentValues.put("pvcode",prefManager.getPvCode());
+                                    contentValues.put("hab_code",hab_code);
+                                    contentValues.put("activity_name",activity_name);
+                                    contentValues.put("hab_name",hab_name);
+                                    contentValues.put("item_no",item_no);
+                                    contentValues.put("image_category_id",image_category_id);
+                                    contentValues.put("image_path",image_path);
+                                    contentValues.put("image_serial_no",count);
+                                    contentValues.put("image_lat",latitude_text.getText().toString());
+                                    contentValues.put("image_long",longtitude_text.getText().toString());
+                                    contentValues.put("image_description",myEditTextView.getText().toString());
+
+                                    long rowInserted = db.insert(DBHelper.SAVE_IMAGE_DETAILS_TABLE, null, contentValues);
+
+                                    if (count == childCount) {
+                                        if (rowInserted > 0) {
+
+                                            showToast();
+                                        }
+
+                                    }
+                                }
+                                catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            }
+
+                        } catch (Exception e) {
+                            Utils.showAlert(CameraScreen.this, getResources().getString(R.string.at_least_capture_one_photo));
+                        }
+
+
+                    } else {
+                        Utils.showAlert(CameraScreen.this, getResources().getString(R.string.please_capture_image));
+                    }
+
                 }
             }
         }
@@ -681,9 +808,9 @@ public class CameraScreen extends AppCompatActivity implements View.OnClickListe
             dataSet.put("campaign_activity_id", campaign_activity_id);
             dataSet.put("campaign_activity_entry_id", campaign_activity_entry_id);
             dataSet.put("item_no", item_no);
-            dataSet.put("image_category_id", image_category_id);
+            //dataSet.put("image_category_id", image_category_id);
             dataSet.put("image_details", image_json);
-            Log.d("activty", "" + dataSet);
+            Log.d("activity", "" + dataSet);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -691,4 +818,34 @@ public class CameraScreen extends AppCompatActivity implements View.OnClickListe
 
         return dataSet;
     }
+
+    public String fileDirectory(Bitmap bitmap,String type,String count){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir(type, Context.MODE_PRIVATE);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        String path_new = Utils.getCurrentDateTime()+"_"+hab_code+campaign_id+activity_id+campaign_activity_id+location_save_details_primary_id+image_category_id+item_no+count;
+        String child_path = path_new+".png";
+        File mypath = new File(directory, child_path);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.close();
+        } catch (Exception e) {
+            Log.e("SAVE_IMAGE", e.getMessage(), e);
+        }
+        return mypath.toString();
+    }
+
+    private void deleteFileDirectory(String file_path){
+        File file = new File(file_path);
+        // call deleteDirectory method to delete directory
+        // recursively
+        file.delete();
+
+    }
+
 }

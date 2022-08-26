@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.nic.nammaoorusuper.OfflineActivities.SubActivityListOffline;
 import com.nic.nammaoorusuper.R;
 import com.nic.nammaoorusuper.activity.ActivityList;
 import com.nic.nammaoorusuper.activity.SubActivityList;
@@ -27,14 +28,15 @@ public class ActivitySubListAdapter extends RecyclerView.Adapter<ActivitySubList
     private List<NOS> activitySubList;
     com.nic.nammaoorusuper.dataBase.dbData dbData;
     private LayoutInflater layoutInflater;
-    int pos=-1;
+    private String On_Off_Type;
 
-    public ActivitySubListAdapter(Activity context,List<NOS> activitySubList, com.nic.nammaoorusuper.dataBase.dbData dbData) {
+    public ActivitySubListAdapter(Activity context,List<NOS> activitySubList, com.nic.nammaoorusuper.dataBase.dbData dbData,String On_Off_Type) {
 
         this.context = context;
         prefManager = new PrefManager(context);
 
         this.dbData=dbData;
+        this.On_Off_Type=On_Off_Type;
         this.activitySubList = activitySubList;
     }
 
@@ -69,8 +71,13 @@ public class ActivitySubListAdapter extends RecyclerView.Adapter<ActivitySubList
       holder.itemView.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
+              if(On_Off_Type.equals("")){
+                  ((SubActivityList)context).activityListItemClicked(position);
+              }
+              else {
+                  ((SubActivityListOffline)context).activityListItemClicked(position);
+              }
 
-              ((SubActivityList)context).activityListItemClicked(position);
           }
       });
     }

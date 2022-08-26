@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nic.nammaoorusuper.R;
 import com.nic.nammaoorusuper.activity.ActivityList;
+import com.nic.nammaoorusuper.activity.DownLoadOfflineWork;
 import com.nic.nammaoorusuper.dataBase.dbData;
 import com.nic.nammaoorusuper.model.NOS;
 import com.nic.nammaoorusuper.session.PrefManager;
@@ -37,12 +38,14 @@ public class CampaignListAdapter extends RecyclerView.Adapter<CampaignListAdapte
     private Context context;
     private List<NOS> campaignListValues;
     private PrefManager prefManager;
+    private String On_Off_Type;
 
-    public CampaignListAdapter(Context context, List<NOS> campaignListValues, dbData dbData) {
+    public CampaignListAdapter(Context context, List<NOS> campaignListValues, dbData dbData,String On_Off_Type) {
         this.context = context;
         this.campaignListValues = campaignListValues;
         this.dbData = dbData;
-       prefManager = new PrefManager(context);
+        this.On_Off_Type = On_Off_Type;
+        prefManager = new PrefManager(context);
     }
 
     @Override
@@ -106,9 +109,19 @@ public class CampaignListAdapter extends RecyclerView.Adapter<CampaignListAdapte
     }
 
     private void openActivityClass(int pos){
-        Intent intent = new Intent(context, ActivityList.class);
-        intent.putExtra("campaign_id",campaignListValues.get(pos).getCampaign_id());
-        context.startActivity(intent);
+        if(On_Off_Type.equals("Online")){
+            Intent intent = new Intent(context, ActivityList.class);
+            intent.putExtra("campaign_id",campaignListValues.get(pos).getCampaign_id());
+            intent.putExtra("On_Off_Type",On_Off_Type);
+            context.startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(context, DownLoadOfflineWork.class);
+            intent.putExtra("campaign_id",campaignListValues.get(pos).getCampaign_id());
+            intent.putExtra("On_Off_Type",On_Off_Type);
+            context.startActivity(intent);
+        }
+
     }
     public void showAlert( String msg){
         try {

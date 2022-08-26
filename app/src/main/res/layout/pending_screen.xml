@@ -13,7 +13,8 @@
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#eff">
 
 
         <com.google.android.material.appbar.AppBarLayout
@@ -83,6 +84,53 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/split_layout">
+
+                    <LinearLayout
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_35sdp"
+                        android:orientation="horizontal"
+                        android:background="@drawable/full_curved_bg"
+                        android:weightSum="2"
+                        android:baselineAligned="false"
+                        >
+                        <RelativeLayout
+                            android:id="@+id/location_rl"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:text="Location Details"/>
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/image_rl"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:text="Image Details"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/pending_list"
@@ -93,18 +141,29 @@
                     android:scrollbarSize="4dp"
                     android:scrollbars="vertical"
                     android:visibility="gone"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/image_upload_recycler"
+                    android:layout_below="@+id/split_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:fadeScrollbars="false"
+                    android:scrollbarSize="4dp"
+                    android:scrollbars="vertical"
+                    android:visibility="gone"/>
 
                 <TextView
+                    android:layout_marginTop="@dimen/_25sdp"
                     android:id="@+id/not_found_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/pending_list"
+                    android:layout_below="@+id/split_layout"
                     android:text="No Projects Found!"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_16sdp"
                     android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
 
             </RelativeLayout>

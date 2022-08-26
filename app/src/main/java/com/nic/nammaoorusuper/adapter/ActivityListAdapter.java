@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.nic.nammaoorusuper.OfflineActivities.ActivityListOffLine;
 import com.nic.nammaoorusuper.R;
 import com.nic.nammaoorusuper.activity.ActivityList;
 import com.nic.nammaoorusuper.databinding.ActivityRecyclerItemBinding;
@@ -27,14 +28,16 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
 
     com.nic.nammaoorusuper.dataBase.dbData dbData;
     private LayoutInflater layoutInflater;
+    private String On_Off_Type;
 
 
-    public ActivityListAdapter(Activity context, List<NOS> activityList,com.nic.nammaoorusuper.dataBase.dbData dbData) {
+    public ActivityListAdapter(Activity context, List<NOS> activityList,com.nic.nammaoorusuper.dataBase.dbData dbData,String On_Off_Type) {
 
         this.context = context;
         prefManager = new PrefManager(context);
 
         this.dbData=dbData;
+        this.On_Off_Type=On_Off_Type;
         this.activityList = activityList;
 
     }
@@ -70,7 +73,13 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ActivityList)context).activityListItemClicked(position);
+                if(On_Off_Type.equals("")){
+                    ((ActivityList)context).activityListItemClicked(position);
+                }
+                else {
+                    ((ActivityListOffLine)context).activityListItemClicked(position);
+                }
+
             }
         });
 

@@ -16,7 +16,7 @@
     <string name="init_vector">2SN22SkJGDyOAXUU</string>
     <string name="main_page">Main Page</string>
     <string name="log_out_icon">log_out_icon</string>
-    <string name="go">Go</string>
+    <string name="go">Go Online</string>
     <string name="pending_works_for_upload">Pending Works for Upload</string>
     <string name="sync">Sync</string>
     <string name="pending_uploads">Pending Uploads</string>
@@ -60,6 +60,7 @@
     <string name="description">தகவல் குறிப்பு</string>
     <string name="enter_description">தகவல் குறிப்பு</string>
     <string name="additional_details">கூடுதல் விவரங்கள்</string>
+    <string name="go_offline">Go Offline</string>
 
 
 </resources>

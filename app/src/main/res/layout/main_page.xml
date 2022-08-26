@@ -147,6 +147,7 @@
                                         android:textSize="14sp" />
 
                                     <RelativeLayout
+                                        android:id="@+id/go_online_works"
                                         android:layout_below="@+id/designation"
                                         android:layout_marginTop="@dimen/_30sdp"
                                         android:layout_width="match_parent"
@@ -165,7 +166,33 @@
                                             android:text="@string/go"
                                             android:clickable="true"
                                             android:textAlignment="center"
-                                            android:textAllCaps="true"
+                                            android:textAllCaps="false"
+                                            android:textColor="@color/white"
+                                            android:textSize="@dimen/_12sdp"
+                                            android:focusable="true" />
+
+
+                                    </RelativeLayout>
+                                    <RelativeLayout
+                                        android:layout_below="@+id/go_online_works"
+                                        android:layout_marginTop="@dimen/_30sdp"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="@dimen/_40sdp"
+                                        android:layout_marginRight="@dimen/_40sdp"
+                                        android:orientation="vertical"
+                                        >
+                                        <Button
+                                            android:id="@+id/go_offline_works"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="@dimen/_45sdp"
+                                            android:layout_centerInParent="true"
+                                            android:layout_gravity="center_horizontal"
+                                            android:background="@drawable/grad_curve"
+                                            android:text="@string/go_offline"
+                                            android:clickable="true"
+                                            android:textAlignment="center"
+                                            android:textAllCaps="false"
                                             android:textColor="@color/white"
                                             android:textSize="@dimen/_12sdp"
                                             android:focusable="true" />
@@ -273,7 +300,6 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:layout_below="@+id/linlay1"
                             android:layout_width="match_parent"
                             android:id="@+id/sync_layout"

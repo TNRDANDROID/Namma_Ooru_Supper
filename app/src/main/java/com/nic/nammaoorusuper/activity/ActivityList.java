@@ -251,7 +251,7 @@ public class ActivityList extends AppCompatActivity implements Api.ServerRespons
             habitationFilterSpinner(prefManager.getDistrictCode(),prefManager.getBlockCode(),prefManager.getPvCode());
         }
     }
-    public void habitationFilterSpinner(String dcode, String bcode, String pvcode) {
+    private void habitationFilterSpinner(String dcode, String bcode, String pvcode) {
         Cursor HABList = null;
         HABList = db.rawQuery("SELECT * FROM " + DBHelper.HABITATION_TABLE_NAME + " where dcode = '" + dcode + "'and bcode = '" + bcode + "' and pvcode = '" + pvcode + "' order by habitation_name asc", null);
 
@@ -285,7 +285,7 @@ public class ActivityList extends AppCompatActivity implements Api.ServerRespons
         }
     }
 
-    public class InsertActivityList extends AsyncTask<JSONObject, Void, Void> {
+    private class InsertActivityList extends AsyncTask<JSONObject, Void, Void> {
 
         @Override
         protected Void doInBackground(JSONObject... params) {
@@ -337,7 +337,7 @@ public class ActivityList extends AppCompatActivity implements Api.ServerRespons
             if(activityList.size()>0){
                 activityListBinding.noDataIcon.setVisibility(View.GONE);
                 activityListBinding.activityRecycler.setVisibility(View.VISIBLE);
-                activityListAdapter =new ActivityListAdapter(ActivityList.this,activityList,dbData);
+                activityListAdapter =new ActivityListAdapter(ActivityList.this,activityList,dbData,"");
                 activityListBinding.activityRecycler.setAdapter(activityListAdapter);
             }
             else {

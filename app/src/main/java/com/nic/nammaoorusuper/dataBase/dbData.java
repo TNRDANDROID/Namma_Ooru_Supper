@@ -87,6 +87,8 @@ public class dbData {
         return cards;
     }
 
+
+
     public NOS insertHabitation(NOS pmgsySurvey) {
 
         ContentValues values = new ContentValues();
@@ -647,6 +649,584 @@ public class dbData {
     }
 
 
+    //////////////////////NOS Tables Insert and Get
+    public void insertCampaignList(NOS pmgsySurvey) {
+
+        ContentValues values = new ContentValues();
+        values.put("campaign_id", pmgsySurvey.getCampaign_id());
+        values.put("campaign_name", pmgsySurvey.getCampaign_name());
+        values.put("campaign_from_date", pmgsySurvey.getCampaign_from_date());
+        values.put("campaign_to_date", pmgsySurvey.getCampaign_to_date());
+
+        long id = db.insert(DBHelper.CAMPAIGN_LIST_TABLE,null,values);
+        Log.d("Inserted_id_campaign", String.valueOf(id));
+
+    }
+    public void insertPhotoCategoryList(NOS pmgsySurvey) {
+
+        ContentValues values = new ContentValues();
+        values.put("image_category_id", pmgsySurvey.getImage_category_id());
+        values.put("image_category_name", pmgsySurvey.getImage_category_name());
+        long id = db.insert(DBHelper.GET_PHOTO_CATEGORY,null,values);
+        Log.d("Inserted_id_category", String.valueOf(id));
+
+    }
+    public ArrayList<NOS> getAll_Campaign() {
+
+        ArrayList<NOS> cards = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            //cursor = db.rawQuery("select * from "+DBHelper.VILLAGE_TABLE_NAME,null,null);
+            cursor = db.query(DBHelper.CAMPAIGN_LIST_TABLE,
+                    null, null, null, null, null, "");
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    NOS card = new NOS();
+                    card.setDistictCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.DISTRICT_CODE)));
+                    card.setBlockCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.BLOCK_CODE)));
+                    card.setPvCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.PV_CODE)));
+                    card.setPvName(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.PV_NAME)));
+
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+            //   Log.d(DEBUG_TAG, "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
+    public ArrayList<NOS> getAll_Photo_Category() {
+
+        ArrayList<NOS> cards = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            //cursor = db.rawQuery("select * from "+DBHelper.VILLAGE_TABLE_NAME,null,null);
+            cursor = db.query(DBHelper.GET_PHOTO_CATEGORY,
+                    null, null, null, null, null, null);
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    NOS card = new NOS();
+                    card.setImage_category_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("image_category_id")));
+                    card.setImage_category_name(cursor.getString(cursor
+                            .getColumnIndexOrThrow("image_category_name")));
+
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+            //   Log.d(DEBUG_TAG, "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
+
+    public void insertActivityList(NOS pmgsySurvey) {
+
+        ContentValues values = new ContentValues();
+        values.put("campaign_activity_details_id", pmgsySurvey.getCampaign_activity_details_id());
+        values.put("campaign_id", pmgsySurvey.getCampaign_id());
+        values.put("activity_id", pmgsySurvey.getActivity_id());
+        values.put("dcode", pmgsySurvey.getDistictCode());
+        values.put("bcode", pmgsySurvey.getBlockCode());
+        values.put("pvcode", pmgsySurvey.getPvCode());
+        values.put("hab_code", pmgsySurvey.getHabCode());
+        values.put("no_of_items", pmgsySurvey.getNo_of_items());
+        values.put("activity_name", pmgsySurvey.getActivity_name());
+        values.put("no_of_images", pmgsySurvey.getNo_of_images());
+        values.put("campaign_activity_id", pmgsySurvey.getCampaign_activity_id());
+        values.put("activity_from_date", pmgsySurvey.getActivity_from_date());
+        values.put("activity_to_date", pmgsySurvey.getActivity_to_date());
+
+        long id = db.insert(DBHelper.ACTIVITY_LIST_TABLE,null,values);
+        Log.d("Inserted_id_activity", String.valueOf(id));
+
+    }
+    public void insertSubActivityList(NOS pmgsySurvey) {
+
+        ContentValues values = new ContentValues();
+        values.put("campaign_activity_details_id", pmgsySurvey.getCampaign_activity_details_id());
+        values.put("campaign_id", pmgsySurvey.getCampaign_id());
+        values.put("activity_id", pmgsySurvey.getActivity_id());
+        values.put("dcode", pmgsySurvey.getDistictCode());
+        values.put("bcode", pmgsySurvey.getBlockCode());
+        values.put("pvcode", pmgsySurvey.getPvCode());
+        values.put("hab_code", pmgsySurvey.getHabCode());
+        values.put("activity_sub_list", pmgsySurvey.getActivity_sub_list());
+        values.put("item_no", pmgsySurvey.getItem_no());
+        values.put("is_taken", pmgsySurvey.getIs_taken());
+        values.put("campaign_activity_id", pmgsySurvey.getCampaign_activity_id());
+
+
+        long id = db.insert(DBHelper.SUB_ACTIVITY_LIST_TABLE,null,values);
+        Log.d("Inserted_id_sub", String.valueOf(id));
+
+    }
+    public void insertDynamicWidgetList(NOS pmgsySurvey) {
+
+        ContentValues values = new ContentValues();
+        values.put("dcode", pmgsySurvey.getDistictCode());
+        values.put("bcode", pmgsySurvey.getBlockCode());
+        values.put("pvcode", pmgsySurvey.getPvCode());
+        values.put("hab_code", pmgsySurvey.getHabCode());
+        values.put("campaign_activity_data", pmgsySurvey.getCampaign_activity_data());
+        values.put("campaign_id", pmgsySurvey.getCampaign_id());
+        values.put("activity_id", pmgsySurvey.getActivity_id());
+        values.put("campaign_data_label", pmgsySurvey.getCampaign_data_label());
+        values.put("campaign_data_type", pmgsySurvey.getCampaign_data_type());
+        values.put("campaign_activity_id", pmgsySurvey.getCampaign_activity_id());
+
+
+        long id = db.insert(DBHelper.DYNAMIC_WIDGET_DETAILS_TABLE,null,values);
+        Log.d("Inserted_id_sub", String.valueOf(id));
+
+    }
+    public void insertCategoryDetailsList(NOS pmgsySurvey) {
+
+        ContentValues values = new ContentValues();
+        values.put("campaign_id", pmgsySurvey.getCampaign_id());
+        values.put("activity_id", pmgsySurvey.getActivity_id());
+        values.put("campaign_activity_id", pmgsySurvey.getCampaign_activity_id());
+        values.put("campaign_activity_entry_id", pmgsySurvey.getCampaign_activity_entry_id());
+        values.put("dcode", pmgsySurvey.getDistictCode());
+        values.put("bcode", pmgsySurvey.getBlockCode());
+        values.put("pvcode", pmgsySurvey.getPvCode());
+        values.put("hab_code", pmgsySurvey.getHabCode());
+        values.put("item_no", pmgsySurvey.getItem_no());
+        values.put("image_category_id", pmgsySurvey.getImage_category_id());
+        values.put("image_category_name", pmgsySurvey.getImage_category_name());
+        values.put("is_taken", pmgsySurvey.getIs_taken());
+
+        long id = db.insert(DBHelper.GET_CATEGORY_DETAILS_TABLE,null,values);
+        Log.d("Inserted_id_activity", String.valueOf(id));
+
+    }
+
+    public ArrayList<NOS> get_Particular_Campaign_Activity_List(String campaign_id,String hab_code) {
+
+        ArrayList<NOS> cards = new ArrayList<>();
+        Cursor cursor = null;
+        String selection;
+        String[] selectionArgs;
+        try {
+            selection = "campaign_id = ? and hab_code = ? ";
+            selectionArgs = new String[]{campaign_id,hab_code};
+            //cursor = db.rawQuery("select * from "+DBHelper.VILLAGE_TABLE_NAME,null,null);
+            cursor = db.query(DBHelper.ACTIVITY_LIST_TABLE,
+                    null, selection, selectionArgs, null, null, "activity_from_date");
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    NOS card = new NOS();
+                    card.setCampaign_activity_details_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_activity_details_id")));
+                    card.setCampaign_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_id")));
+                    card.setActivity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("activity_id")));
+                    card.setDistictCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.DISTRICT_CODE)));
+                    card.setBlockCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.BLOCK_CODE)));
+                    card.setPvCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.PV_CODE)));
+                    card.setHabCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_code")));
+                    card.setNo_of_items(cursor.getString(cursor
+                            .getColumnIndexOrThrow("no_of_items")));
+                    card.setActivity_name(cursor.getString(cursor
+                            .getColumnIndexOrThrow("activity_name")));
+                    card.setNo_of_images(cursor.getString(cursor
+                            .getColumnIndexOrThrow("no_of_images")));
+                    card.setCampaign_activity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_activity_id")));
+                    card.setActivity_from_date(cursor.getString(cursor
+                            .getColumnIndexOrThrow("activity_from_date")));
+                    card.setActivity_to_date(cursor.getString(cursor
+                            .getColumnIndexOrThrow("activity_to_date")));
+
+
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+            //   Log.d(DEBUG_TAG, "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
+    public ArrayList<NOS> get_Particular_Campaign_Activity_Sub_List(String campaign_id,String hab_code,String activity_id,String campaign_activity_id) {
+
+        ArrayList<NOS> cards = new ArrayList<>();
+        Cursor cursor = null;
+        String selection;
+        String[] selectionArgs;
+        try {
+            selection = "campaign_id = ? and hab_code = ? and activity_id = ? and campaign_activity_id = ? ";
+            selectionArgs = new String[]{campaign_id,hab_code,activity_id,campaign_activity_id};
+            //cursor = db.rawQuery("select * from "+DBHelper.VILLAGE_TABLE_NAME,null,null);
+            cursor = db.query(DBHelper.SUB_ACTIVITY_LIST_TABLE,
+                    null, selection, selectionArgs, null, null, "item_no");
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    NOS card = new NOS();
+                    card.setCampaign_activity_details_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_activity_details_id")));
+                    card.setCampaign_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_id")));
+                    card.setActivity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("activity_id")));
+                    card.setDistictCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.DISTRICT_CODE)));
+                    card.setBlockCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.BLOCK_CODE)));
+                    card.setPvCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.PV_CODE)));
+                    card.setHabCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_code")));
+                    card.setActivity_sub_list(cursor.getString(cursor
+                            .getColumnIndexOrThrow("activity_sub_list")));
+                    card.setCampaign_activity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_activity_id")));
+                    card.setItem_no(cursor.getString(cursor
+                            .getColumnIndexOrThrow("item_no")));
+                    card.setIs_taken(cursor.getString(cursor
+                            .getColumnIndexOrThrow("is_taken")));
+
+
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+            //   Log.d(DEBUG_TAG, "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
+    public ArrayList<NOS> get_Particular_Dynamic_Widget_List(String campaign_id,String hab_code,String activity_id,String campaign_activity_id) {
+
+        ArrayList<NOS> cards = new ArrayList<>();
+        Cursor cursor = null;
+        String selection;
+        String[] selectionArgs;
+        try {
+            selection = "campaign_id = ? and hab_code = ? and activity_id = ? and campaign_activity_id = ? ";
+            selectionArgs = new String[]{campaign_id,hab_code,activity_id,campaign_activity_id};
+            //cursor = db.rawQuery("select * from "+DBHelper.VILLAGE_TABLE_NAME,null,null);
+            cursor = db.query(DBHelper.DYNAMIC_WIDGET_DETAILS_TABLE,
+                    null, selection, selectionArgs, null, null, "campaign_activity_data");
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    NOS card = new NOS();
+                    card.setCampaign_activity_data(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_activity_data")));
+                    card.setCampaign_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_id")));
+                    card.setActivity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("activity_id")));
+                    card.setDistictCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.DISTRICT_CODE)));
+                    card.setBlockCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.BLOCK_CODE)));
+                    card.setPvCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.PV_CODE)));
+                    card.setHabCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_code")));
+                    card.setCampaign_data_label(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_data_label")));
+                    card.setCampaign_activity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_activity_id")));
+                    card.setCampaign_data_type(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_data_type")));
+
+
+
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+            //   Log.d(DEBUG_TAG, "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
+    public ArrayList<NOS> get_Particular_Location_Save_List(String campaign_id,String activity_id,String campaign_activity_id,String dcode,String bcode,String pvcode,String hab_code,String item_no,String type) {
+
+        ArrayList<NOS> cards = new ArrayList<>();
+        Cursor cursor = null;
+        String selection;
+        String[] selectionArgs;
+        try {
+            if(type.equals("All")){
+                cursor = db.rawQuery("select * from "+DBHelper.LOCATION_SAVE_DETAILS_TABLE,null,null);
+            }
+            else {
+                selection = "campaign_id = ? and activity_id = ? and campaign_activity_id = ? and dcode = ? and bcode = ? and pvcode = ? and hab_code = ? and item_no = ? ";
+                selectionArgs = new String[]{campaign_id,activity_id,campaign_activity_id,dcode,bcode,pvcode,hab_code,item_no};
+                //cursor = db.rawQuery("select * from "+DBHelper.VILLAGE_TABLE_NAME,null,null);
+                cursor = db.query(DBHelper.LOCATION_SAVE_DETAILS_TABLE,
+                        null, selection, selectionArgs, null, null, null);
+            }
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    NOS card = new NOS();
+                    card.setLocation_save_details_primary_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("location_save_details_primary_id")));
+                    card.setCampaign_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_id")));
+                    card.setActivity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("activity_id")));
+                    card.setCampaign_activity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_activity_id")));
+                    card.setDistictCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.DISTRICT_CODE)));
+                    card.setBlockCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.BLOCK_CODE)));
+                    card.setPvCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.PV_CODE)));
+                    card.setHabCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_code")));
+                    card.setActivity_name(cursor.getString(cursor
+                            .getColumnIndexOrThrow("activity_name")));
+                    card.setHabitationName(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_name")));
+                    card.setItem_no(cursor.getString(cursor
+                            .getColumnIndexOrThrow("item_no")));
+                    card.setJson_value(cursor.getString(cursor
+                            .getColumnIndexOrThrow("json_value")));
+
+
+
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+               Log.d("DEBUG_TAG", "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
+
+    public ArrayList<NOS> get_Particular_Category_Get_List(String campaign_id,String activity_id,String campaign_activity_id,String dcode,String bcode,String pvcode,String hab_code,String item_no,String type) {
+
+        ArrayList<NOS> cards = new ArrayList<>();
+        Cursor cursor = null;
+        String selection;
+        String[] selectionArgs;
+        try {
+            if(type.equals("All")){
+                cursor = db.rawQuery("select * from "+DBHelper.GET_CATEGORY_TABLE,null,null);
+            }
+            else {
+                selection = "campaign_id = ? and activity_id = ? and campaign_activity_id = ? and dcode = ? and bcode = ? and pvcode = ? and hab_code = ? and item_no = ? ";
+                selectionArgs = new String[]{campaign_id,activity_id,campaign_activity_id,dcode,bcode,pvcode,hab_code,item_no};
+                //cursor = db.rawQuery("select * from "+DBHelper.VILLAGE_TABLE_NAME,null,null);
+                cursor = db.query(DBHelper.GET_CATEGORY_TABLE,
+                        null, selection, selectionArgs, null, null, null);
+            }
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    NOS card = new NOS();
+                    card.setCampaign_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_id")));
+                    card.setActivity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("activity_id")));
+                    card.setCampaign_activity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_activity_id")));
+                    card.setCampaign_activity_entry_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_activity_entry_id")));
+                    card.setDistictCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.DISTRICT_CODE)));
+                    card.setBlockCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.BLOCK_CODE)));
+                    card.setPvCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.PV_CODE)));
+                    card.setHabCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_code")));
+                    card.setItem_no(cursor.getString(cursor
+                            .getColumnIndexOrThrow("item_no")));
+
+
+
+
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+            Log.d("DEBUG_TAG", "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
+    public ArrayList<NOS> get_Particular_Category_Get_DetailsList(String campaign_id,String activity_id,String campaign_activity_id,String dcode,String bcode,String pvcode,String hab_code,String item_no) {
+
+        ArrayList<NOS> cards = new ArrayList<>();
+        Cursor cursor = null;
+        String selection;
+        String[] selectionArgs;
+        try {
+                selection = "campaign_id = ? and activity_id = ? and campaign_activity_id = ? and dcode = ? and bcode = ? and pvcode = ? and hab_code = ? and item_no = ? ";
+                selectionArgs = new String[]{campaign_id,activity_id,campaign_activity_id,dcode,bcode,pvcode,hab_code,item_no};
+
+                cursor = db.query(DBHelper.GET_CATEGORY_DETAILS_TABLE,
+                        null, selection, selectionArgs,null,null,null);
+
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    NOS card = new NOS();
+                    card.setCampaign_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_id")));
+                    card.setActivity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("activity_id")));
+                    card.setCampaign_activity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_activity_id")));
+                    card.setCampaign_activity_entry_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_activity_entry_id")));
+                    card.setDistictCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.DISTRICT_CODE)));
+                    card.setBlockCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.BLOCK_CODE)));
+                    card.setPvCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.PV_CODE)));
+                    card.setHabCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_code")));
+                    card.setItem_no(cursor.getString(cursor
+                            .getColumnIndexOrThrow("item_no")));
+                    card.setImage_category_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("image_category_id")));
+                    card.setImage_category_name(cursor.getString(cursor
+                            .getColumnIndexOrThrow("image_category_name")));
+                    card.setIs_taken(cursor.getString(cursor
+                            .getColumnIndexOrThrow("is_taken")));
+
+
+
+
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+            Log.d("DEBUG_TAG", "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
+
+    public ArrayList<NOS> get_Particular_Save_Image_Details_List(String campaign_id,String activity_id,String campaign_activity_id,String location_save_details_primary_id,String item_no,String dcode,String bcode,String pvcode,String hab_code,String image_category_id,String type) {
+
+        ArrayList<NOS> cards = new ArrayList<>();
+        Cursor cursor = null;
+        String selection;
+        String[] selectionArgs;
+        try {
+          if(type.equals("All")){
+            String query = "select distinct campaign_id,activity_id,campaign_activity_id,location_save_details_primary_id,dcode,bcode,pvcode,hab_code,item_no,image_category_id,activity_name,hab_name from save_image_details";
+            cursor = db.rawQuery(query,null);
+          }
+          else if(type.equals("")){
+              selection = "campaign_id = ? and activity_id = ? and campaign_activity_id = ? and location_save_details_primary_id = ? and dcode = ? and bcode = ? and pvcode = ? and hab_code = ? and item_no = ? and image_category_id = ?";
+              selectionArgs = new String[]{campaign_id,activity_id,campaign_activity_id,location_save_details_primary_id,dcode,bcode,pvcode,hab_code,item_no,image_category_id};
+
+              cursor = db.query(DBHelper.SAVE_IMAGE_DETAILS_TABLE,
+                      null, selection, selectionArgs,null,null,null);
+
+          }
+          else {
+               {
+                  selection = "campaign_id = ? and activity_id = ? and campaign_activity_id = ? and location_save_details_primary_id = ? and dcode = ? and bcode = ? and pvcode = ? and hab_code = ? and item_no = ?";
+                  selectionArgs = new String[]{campaign_id,activity_id,campaign_activity_id,location_save_details_primary_id,dcode,bcode,pvcode,hab_code,item_no};
+
+                  cursor = db.query(DBHelper.SAVE_IMAGE_DETAILS_TABLE,
+                          null, selection, selectionArgs,null,null,null);
+
+              }
+          }
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    NOS card = new NOS();
+                    card.setCampaign_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_id")));
+                    card.setActivity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("activity_id")));
+                    card.setCampaign_activity_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("campaign_activity_id")));
+                    card.setLocation_save_details_primary_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("location_save_details_primary_id")));
+                    card.setItem_no(cursor.getString(cursor
+                            .getColumnIndexOrThrow("item_no")));
+                    card.setDistictCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.DISTRICT_CODE)));
+                    card.setBlockCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.BLOCK_CODE)));
+                    card.setPvCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow(AppConstant.PV_CODE)));
+                    card.setHabCode(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_code")));
+                    card.setActivity_name(cursor.getString(cursor
+                            .getColumnIndexOrThrow("activity_name")));
+                    card.setHabitationName(cursor.getString(cursor
+                            .getColumnIndexOrThrow("hab_name")));
+                    card.setImage_category_id(cursor.getString(cursor
+                            .getColumnIndexOrThrow("image_category_id")));
+                   if(!type.equals("All")){
+                       card.setImage_path(cursor.getString(cursor
+                               .getColumnIndexOrThrow("image_path")));
+                       card.setImage_serial_no(cursor.getString(cursor
+                               .getColumnIndexOrThrow("image_serial_no")));
+                       card.setImage_lat(cursor.getString(cursor
+                               .getColumnIndexOrThrow("image_lat")));
+                       card.setImage_long(cursor.getString(cursor
+                               .getColumnIndexOrThrow("image_long")));
+                       card.setImage_description(cursor.getString(cursor
+                               .getColumnIndexOrThrow("image_description")));
+                   }
+
+                    cards.add(card);
+                }
+            }
+        } catch (Exception e){
+            Log.d("DEBUG_TAG", "Exception raised with a value of " + e);
+        } finally{
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return cards;
+    }
+
+
+
+
     public Bitmap bytearrtoBitmap(byte[] photo){
         byte[] imgbytes = Base64.decode(photo, Base64.DEFAULT);
         Bitmap bitmap = BitmapFactory.decodeByteArray(imgbytes, 0,
@@ -678,6 +1258,17 @@ public class dbData {
     public void deleteSAVE_TREE_IMAGE_TABLE() { db.execSQL("delete from " + DBHelper.SAVE_TREE_IMAGE_TABLE);}
 
 
+    public void delete_campaign_list_table() { db.execSQL("delete from " + DBHelper.CAMPAIGN_LIST_TABLE);}
+    public void delete_activity_list_table() { db.execSQL("delete from " + DBHelper.ACTIVITY_LIST_TABLE);}
+    public void delete_sub_activity_list_table() { db.execSQL("delete from " + DBHelper.SUB_ACTIVITY_LIST_TABLE);}
+    public void delete_dynamic_widget_details_table() { db.execSQL("delete from " + DBHelper.DYNAMIC_WIDGET_DETAILS_TABLE);}
+    public void delete_location_save_details_table() { db.execSQL("delete from " + DBHelper.LOCATION_SAVE_DETAILS_TABLE);}
+    public void delete_get_category_table() { db.execSQL("delete from " + DBHelper.GET_CATEGORY_TABLE);}
+    public void delete_get_photo_category_table() { db.execSQL("delete from " + DBHelper.GET_PHOTO_CATEGORY);}
+    public void delete_get_category_details_table() { db.execSQL("delete from " + DBHelper.GET_CATEGORY_DETAILS_TABLE);}
+    public void delete_save_image_details_table() { db.execSQL("delete from " + DBHelper.SAVE_IMAGE_DETAILS_TABLE);}
+
+
 
 
     public void deleteAll() {
@@ -695,6 +1286,18 @@ public class dbData {
         deleteSAVE_BEFORE_TREE_IMAGE_TABLE();
         deleteSAVE_AFTER_TREE_IMAGE_TABLE();
         deleteSAVE_TREE_IMAGE_TABLE();
+
+
+        /////NOS Tables
+        delete_campaign_list_table();
+        delete_activity_list_table();
+        delete_sub_activity_list_table();
+        delete_dynamic_widget_details_table();
+        delete_location_save_details_table();
+        delete_get_category_table();
+        delete_get_photo_category_table();
+        delete_get_category_details_table();
+        delete_save_image_details_table();
     }
 
 

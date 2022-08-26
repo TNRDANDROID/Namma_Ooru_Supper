@@ -573,6 +573,15 @@ public class NOS {
     private String image_category_name;
     private String is_taken;
     private String campaign_activity_entry_id;
+    private String location_save_details_primary_id;
+
+    public String getLocation_save_details_primary_id() {
+        return location_save_details_primary_id;
+    }
+
+    public void setLocation_save_details_primary_id(String location_save_details_primary_id) {
+        this.location_save_details_primary_id = location_save_details_primary_id;
+    }
 
     public String getImage_category_id() {
         return image_category_id;
@@ -615,5 +624,60 @@ public class NOS {
 
     public void setLabel_value(String label_value) {
         this.label_value = label_value;
+    }
+
+    private String json_value;
+    private String image_path;
+    private String image_serial_no;
+    private String image_lat;
+    private String image_long;
+    private String image_description;
+
+    public String getImage_serial_no() {
+        return image_serial_no;
+    }
+
+    public void setImage_serial_no(String image_serial_no) {
+        this.image_serial_no = image_serial_no;
+    }
+
+    public String getImage_lat() {
+        return image_lat;
+    }
+
+    public void setImage_lat(String image_lat) {
+        this.image_lat = image_lat;
+    }
+
+    public String getImage_long() {
+        return image_long;
+    }
+
+    public void setImage_long(String image_long) {
+        this.image_long = image_long;
+    }
+
+    public String getImage_description() {
+        return image_description;
+    }
+
+    public void setImage_description(String image_description) {
+        this.image_description = image_description;
+    }
+
+    public String getImage_path() {
+        return image_path;
+    }
+
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
+    }
+
+    public String getJson_value() {
+        return json_value;
+    }
+
+    public void setJson_value(String json_value) {
+        this.json_value = json_value;
     }
 }

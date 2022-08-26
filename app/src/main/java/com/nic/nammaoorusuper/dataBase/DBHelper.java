@@ -25,6 +25,19 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String SAVE_BEFORE_TREE_IMAGE_TABLE = "save_before_tree_image_table";
     public static final String SAVE_AFTER_TREE_IMAGE_TABLE = "save_after_tree_image_table";
 
+
+
+    ///////NOS Tables
+    public static final String CAMPAIGN_LIST_TABLE = "campaign_list";
+    public static final String ACTIVITY_LIST_TABLE = "activity_list";
+    public static final String SUB_ACTIVITY_LIST_TABLE = "sub_activity_list";
+    public static final String DYNAMIC_WIDGET_DETAILS_TABLE = "dynamic_widget_details";
+    public static final String LOCATION_SAVE_DETAILS_TABLE = "location_save_details";
+    public static final String GET_CATEGORY_TABLE = "get_category";
+    public static final String GET_PHOTO_CATEGORY = "get_photo_category";
+    public static final String GET_CATEGORY_DETAILS_TABLE = "get_category_details";
+    public static final String SAVE_IMAGE_DETAILS_TABLE = "save_image_details";
+
     private Context context;
 
     public DBHelper(Context context) {
@@ -127,6 +140,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "before_photo BLOB," +
                 "before_photo_lat TEXT," +
                 "before_photo_long TEXT)");
+
         db.execSQL("CREATE TABLE " + SAVE_AFTER_TREE_IMAGE_TABLE + " ("
                 +"id INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 "shg_code INTEGER,"+
@@ -139,6 +153,119 @@ public class DBHelper extends SQLiteOpenHelper {
                 "after_photo BLOB," +
                 "after_photo_lat TEXT," +
                 "after_photo_long TEXT)");
+
+
+        /*/////////////////******** NOS Tables
+         ***********/
+        db.execSQL("CREATE TABLE " + CAMPAIGN_LIST_TABLE + " ("
+                +"campaign_id TEXT,"+
+                "campaign_name TEXT," +
+                "campaign_from_date TEXT," +
+                "campaign_to_date TEXT)");
+
+        db.execSQL("CREATE TABLE " + GET_PHOTO_CATEGORY + " ("
+                +"image_category_id TEXT,"+
+                "image_category_name TEXT)");
+
+        db.execSQL("CREATE TABLE " + ACTIVITY_LIST_TABLE + " ("
+                +"campaign_id TEXT,"+
+                "campaign_activity_details_id TEXT," +
+                "activity_id TEXT," +
+                "campaign_activity_id TEXT," +
+                "dcode TEXT," +
+                "bcode TEXT," +
+                "pvcode TEXT," +
+                "hab_code TEXT," +
+                "no_of_items TEXT," +
+                "activity_name TEXT," +
+                "no_of_images TEXT," +
+                "activity_from_date TEXT," +
+                "activity_to_date TEXT)");
+
+        db.execSQL("CREATE TABLE " + SUB_ACTIVITY_LIST_TABLE + " ("
+                +"campaign_id TEXT,"+
+                "campaign_activity_details_id TEXT," +
+                "activity_id TEXT," +
+                "campaign_activity_id TEXT," +
+                "dcode TEXT," +
+                "bcode TEXT," +
+                "pvcode TEXT," +
+                "hab_code TEXT," +
+                "activity_sub_list TEXT," +
+                "item_no TEXT," +
+                "is_taken TEXT)");
+
+        db.execSQL("CREATE TABLE " + DYNAMIC_WIDGET_DETAILS_TABLE + " ("
+                +"campaign_id TEXT,"+
+                "activity_id TEXT," +
+                "dcode TEXT," +
+                "bcode TEXT," +
+                "pvcode TEXT," +
+                "hab_code TEXT," +
+                "campaign_activity_id TEXT," +
+                "campaign_activity_data TEXT," +
+                "campaign_data_label TEXT," +
+                "campaign_data_type TEXT)");
+
+        db.execSQL("CREATE TABLE " + LOCATION_SAVE_DETAILS_TABLE + " ("
+                +"location_save_details_primary_id INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "campaign_id TEXT,"+
+                "activity_id TEXT," +
+                "campaign_activity_id TEXT," +
+                "dcode TEXT," +
+                "bcode TEXT," +
+                "pvcode TEXT," +
+                "hab_code TEXT," +
+                "hab_name TEXT," +
+                "activity_name TEXT," +
+                "item_no TEXT," +
+                "json_value TEXT)");
+
+
+        db.execSQL("CREATE TABLE " + GET_CATEGORY_TABLE + " ("
+                +"campaign_id TEXT,"+
+                "activity_id TEXT," +
+                "campaign_activity_id TEXT," +
+                "campaign_activity_entry_id TEXT," +
+                "dcode TEXT," +
+                "bcode TEXT," +
+                "pvcode TEXT," +
+                "hab_code TEXT," +
+                "item_no TEXT)");
+
+
+        db.execSQL("CREATE TABLE " + GET_CATEGORY_DETAILS_TABLE + " ("
+                +"campaign_id TEXT,"+
+                "activity_id TEXT," +
+                "campaign_activity_id TEXT," +
+                "campaign_activity_entry_id TEXT," +
+                "dcode TEXT," +
+                "bcode TEXT," +
+                "pvcode TEXT," +
+                "hab_code TEXT," +
+                "item_no TEXT," +
+                "image_category_id TEXT," +
+                "image_category_name TEXT," +
+                "is_taken TEXT)");
+
+        db.execSQL("CREATE TABLE " + SAVE_IMAGE_DETAILS_TABLE + " ("
+                +"location_save_details_primary_id TEXT,"+
+                "campaign_id TEXT,"+
+                "activity_id TEXT," +
+                "campaign_activity_id TEXT," +
+                "dcode TEXT," +
+                "bcode TEXT," +
+                "pvcode TEXT," +
+                "hab_code TEXT," +
+                "activity_name TEXT," +
+                "hab_name TEXT," +
+                "item_no TEXT," +
+                "image_category_id TEXT," +
+                "image_path TEXT," +
+                "image_serial_no TEXT," +
+                "image_lat TEXT," +
+                "image_long TEXT," +
+                "image_description TEXT)");
 
 
     }
@@ -161,6 +288,18 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS " + SAVE_TREE_IMAGE_TABLE);
             db.execSQL("DROP TABLE IF EXISTS " + SAVE_BEFORE_TREE_IMAGE_TABLE);
             db.execSQL("DROP TABLE IF EXISTS " + SAVE_AFTER_TREE_IMAGE_TABLE);
+
+
+            /////////////////NOS TABLES
+            db.execSQL("DROP TABLE IF EXISTS " + CAMPAIGN_LIST_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + ACTIVITY_LIST_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + SUB_ACTIVITY_LIST_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + DYNAMIC_WIDGET_DETAILS_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + LOCATION_SAVE_DETAILS_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + GET_CATEGORY_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + GET_PHOTO_CATEGORY);
+            db.execSQL("DROP TABLE IF EXISTS " + GET_CATEGORY_DETAILS_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + SAVE_IMAGE_DETAILS_TABLE);
             onCreate(db);
         }
     }

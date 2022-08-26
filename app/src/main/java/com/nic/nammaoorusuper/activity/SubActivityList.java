@@ -94,6 +94,7 @@ public class SubActivityList extends AppCompatActivity implements Api.ServerResp
                     intent.putExtra("campaign_id",campaign_id);
                     intent.putExtra("item_no",item_no );
                     intent.putExtra("no_of_images", no_of_images);
+                    intent.putExtra("On_Off_Type", "");
                     subListBinding.recyclerViewsLayout.setVisibility(View.VISIBLE);
                     subListBinding.dashBoardLayout.setVisibility(View.GONE);
                     startActivity(intent);
@@ -296,7 +297,7 @@ public class SubActivityList extends AppCompatActivity implements Api.ServerResp
             if(activitySubList.size()>0){
                 subListBinding.noDataIcon.setVisibility(View.GONE);
                 subListBinding.activityRecycler.setVisibility(View.VISIBLE);
-                activityListAdapter =new ActivitySubListAdapter(SubActivityList.this,activitySubList,dbData);
+                activityListAdapter =new ActivitySubListAdapter(SubActivityList.this,activitySubList,dbData,"");
                 subListBinding.activityRecycler.setAdapter(activityListAdapter);
             }
             else {
