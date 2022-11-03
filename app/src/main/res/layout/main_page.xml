@@ -180,6 +180,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="@dimen/_40sdp"
                                         android:layout_marginRight="@dimen/_40sdp"
+                                        android:visibility="gone"
                                         android:orientation="vertical"
                                         >
                                         <Button
@@ -303,6 +304,7 @@
                             android:layout_below="@+id/linlay1"
                             android:layout_width="match_parent"
                             android:id="@+id/sync_layout"
+                            android:visibility="gone"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="30dp"
                             android:layout_marginRight="30dp"
